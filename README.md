@@ -8,23 +8,23 @@ This repository contains research and algorithms for our team, Linear Utility, i
 <table width="50%">
   <tbody>
     <tr>
-      <td align="center" valign="top" width="150px">
+      <td align="center" valign="top" width="200px">
         <a href="https://www.linkedin.com/in/timo-diehm">
-          <img src="https://github.com/user-attachments/assets/29c05872-f107-4bb2-82bd-961865f8cba3" width="100px;" alt="Timo Diehm"/>
+          <img src="https://github.com/user-attachments/assets/9a919806-70ff-4672-bbde-57ec67f891b6" width="150;" alt="Timo Diehm"/>
           <br />
           <p><b>Timo Diehm</b></p></a>
       </td>
-      <td align="center" valign="top" width="150px">
+      <td align="center" valign="top" width="200px">
         <a href="https://www.linkedin.com/in/arne-witt">
-          <img src="https://github.com/user-attachments/assets/61ee7433-469e-4a47-9bf6-a203aea6a0d5" width="100px;" alt="Arne Witt"/>
+          <img src="https://github.com/user-attachments/assets/61ee7433-469e-4a47-9bf6-a203aea6a0d5" width="150;" alt="Arne Witt"/>
           <br />
           <p><b>Arne Witt</b></p></a>
       </td>
-      <td align="center" valign="top" width="150px">
+      <td align="center" valign="top" width="200px">
         <a href="https://www.linkedin.com/in/marvin-schuster">
           <img src="https://github.com/user-attachments/assets/61ee7433-469e-4a47-9bf6-a203aea6a0d5" width="100px;" alt="Marvin Schuster"/>
           <br />
-          <p><b>Marvin Schuster</b></p></a>
+          <p><b>Marvin Schuster</b></br></p></a><span>*only mental support this time</span>
       </td>
     </tr>
   </tbody>
@@ -32,7 +32,6 @@ This repository contains research and algorithms for our team, Linear Utility, i
 
 
 ## the competition 🏆
-
 
 IMC Prosperity 2024 was an algorithmic trading competition that lasted over 15 days, with over 9000 teams participating globally. In the challenge, we were tasked with algorithmically trading various products, such as amethysts, starfruit, orchids, coconuts, and more, with the goal of maximizing seashells: the underlying currency of our island. We started trading amethysts and starfruit in round 1, and with each subsequent round, more products were added. At the end of each round, our trading algorithm was evaluated against bot participants in the marketplace, whose behavior we could try and predict through historical data. The PNL from this independent evaluation would then be compared against all other teams. 
 
@@ -44,8 +43,17 @@ For documentation on the algorithmic trading environment, and more context about
 
 This repository contains all of our code–including internal tools, research notebooks, raw data and backtesting logs, and all versions of our algorithmic trader. The repository is organized by round. Our backtester mostly remained unchanged from round 1, but we simply copied its files over to each subsequent round, so you'll find a version of that in each folder. Within each round, you can locate the algorithmic trading code we used in our final submission by looking for the latest version–for example, for round 1, we used [`round_1_v6.py`](https://github.com/ericcccsliu/imc-prosperity-2/blob/main/round1/round_1_v6.py) for our final submission. Our visualization dashboard is located in the `dashboard` folder. 
 
-<details>
-<summary><h2>tools 🛠️</h2></summary>
+## Table of Contents
+
+- [Tools](#tools)
+- [Algorithmic Part](#algorithmic-challenge)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Screenshots](#screenshots)
+- [License](#license)
+
+
+## tools 🛠️
 
 Instead of relying heavily on open-source tools, which many successful teams did, we decided instead to build our tools in-house. This gave us the ability to tailor our tools heavily to our own needs. We built two main tools: a backtester and a visualization dashboard. 
 
@@ -65,9 +73,9 @@ The dashboard we developed helped us a lot during the early rounds in pnl genera
   <em>we used to have actual section headers, but at some point we (Jerry and Eric) got hungry and started editing them</em>
 </p>
 
-</details>
-<details>
-<summary><h2>round 1️⃣</h2></summary>
+# Algorithmic Challenge
+
+## Round 1
 
 In round 1, we had access to two symbols to trade: amethysts and starfruit. 
 
@@ -115,11 +123,9 @@ Finding a good fair price for starfruit was tougher, as its price wasn't fixed�
 
 After round 1, our team was ranked #3 in the world overall. We had an algo trading profit of 34,498 seashells–just 86 seashells behind first place.
 
-</details>
 
-<details>
-<summary><h2>round 2️⃣</h2></summary>
-  
+## Round 2
+
 ### Gift Baskets 🥀
 
 Orchids were introduced in round 2, as well as a bunch of data on sunlight, humidity, import/export tariffs, and shipping costs. The premise was that orchids were grown on a separate island[^4], and had to be imported–subject to import tariffs and shipping costs, and that they would degrade with suboptimal levels of sunlight and humidity. We were able to trade orchids both in a market on our own island, as well as through importing them from the South archipelago. With this, we had two initial approaches. The obvious approach, to us, was to look for alpha in all the data available, investigating if the price of orchids could be predicted using sunlight, humidity, etc. The other approach involved understanding exactly how the mechanisms for trading orchids worked, as the documentation was fairly unclear. Thus, we split up: Eric looked for alpha in the historical data while Jerry worked on understanding the actual trading environment.
@@ -133,9 +139,8 @@ Orchids were introduced in round 2, as well as a bunch of data on sunlight, humi
      width="70%" />
 
 
-</details>
-<details>
-<summary><h2>round 3️⃣</h2></summary>
+
+## Round 3
 Gift baskets :basket:, chocolate 🍫, roses 🌹, and strawberries 🍓 were introduced in round 3, where a gift basket consisted of 4 chocolate bars, 6 strawberries, and a single rose. This round, we mainly traded spreads, which we defined as `basket - synthetic`, with `synthetic` being the sum of the price of all products in a basket.
 
 ### Options 🧈
@@ -172,9 +177,8 @@ In this round, we quickly converged on two hypotheses. The first hypothesis was 
 
 After results from this round were released, we found that our actual pnl had a significant amount of slippage compared to our backtests–we made only 111k seashells from our algo. Nevertheless, we got a bit lucky–all the teams ahead of us in this round seemed to overfit significantly more, as we were ranked #2 overall.
 
-</details>
-<details>
-<summary><h2>round 4️⃣</h2></summary>
+
+## Round 4
   
 ### Macarons
 Coconuts and coconut coupons were introduced in round 4. Coconut coupons were the 10,000 strike call option on coconuts, with a time to expiry of 250 days. The price of coconuts hovered around 10,000, so this option was near-the-money. 
@@ -189,4 +193,23 @@ This round was fairly simple. Using Black-Scholes, we calculated the implied vol
 <img src="https://github.com/user-attachments/assets/6822bdc7-1f44-4d43-9df3-289c6e7900a9"
      alt="Dynamic dashboard"
      width="70%" />
+
+
+## Round 5
+  
+### Macarons
+Coconuts and coconut coupons were introduced in round 4. Coconut coupons were the 10,000 strike call option on coconuts, with a time to expiry of 250 days. The price of coconuts hovered around 10,000, so this option was near-the-money. 
+
+This round was fairly simple. Using Black-Scholes, we calculated the implied volatility of the option, and once we plotted this out, it became clear that the implied vol oscillated around a value of ~16%. We implemented a mean reverting strategy similar to round 3, and calculated the delta of the coconut coupons at each time in order to hedge with coconuts and gain pure exposure to vol. However, the delta was around 0.53 while the position limits for coconuts/coconut coupons were 300/600, respectively. This meant that we couldn't be fully hedged when holding 600 coupons (we would be holding 18 delta). Since the coupon was far away from expiry (thus, gamma didn't matter as much) and holding delta with vega was still positive ev (but higher var), we ran the variance in hopes of making more from our exposure to vol. 
+
+
+# Manual Challenge
+
+
+
+
+
+
+
+
 
