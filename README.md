@@ -330,7 +330,31 @@ Note: After the fourth round, where the mean reversion strategy resulted in a lo
   
 ### Macarons
 
-text
+In Round 4, Magnificent Macarons, was introduced.
+Their fictional value was described as depending on external factors like hours of sunlight, sugar prices, shipping costs, tariffs, and storage capacity.
+Macarons could be traded on the local island exchange via a standard order book, or externally at fixed bid and ask prices, adjusted for im-/export and transportation fees.
+The position limit for Macarons was 75 units, with a conversion limit of 10 units per timestep.
+This setup opened up both straightforward arbitrage opportunities and, for those who studied the environment carefully, access to a much deeper hidden edge.
+
+At first glance, the standard arbitrage logic applied: whenever the local bid exceeded the external ask (after fees), or the local ask was lower than the external bid, profitable conversions were possible.
+However, there was a critical hidden detail: a taker bot existed that aggressively filled orders offered at attractive prices relative to a hidden "fair value."
+Through experimentation, we discovered that offers priced at about int(externalBid + 0.5) would often get filled, even when no visible orderbook participants were present.
+This taker bot executed approximately 60% of eligible trades, meaning that — in expectation — you could sell locally for a price about 3 SeaShells higher than the naive local best bid.
+Over the course of 10,000 timesteps with a 10-unit conversion limit, this small price improvement could theoretically yield up to 300,000 SeaShells.
+Of course, those conditions were not always present and realistic optimal profits were around 160,000 and 130,000 SeaShells across the two rounds. Still, the magnitude of this hidden edge made Macarons a very lucrative product of the competition.
+
+Our final strategy focused on reliably exploiting this hidden arbitrage.
+Each timestep, we placed limit sell orders for Macarons at precisely int(externalBid + 0.5), the maximum price that could still trigger fills from the taker bot.
+We quoted only 10 units per timestep (the conversion limit), which meant we captured approximately 60% of the theoretical maximum profits, in line with the taker's acceptance probability.
+In hindsight, quoting larger sizes (e.g., 20–30 units) would have allowed us to profitably convert surplus inventory even on non-fills, squeezing out closer to full optimal performance.
+Nevertheless, even with conservative sizing, this strategy provided consistent, high-value returns with minimal risk.
+
+Teams who prepared carefully had a clear advantage this round.
+Similar hidden taker behavior had already appeared in Orchids during Prosperity 2, and public write-ups from top teams like Jasper and Linear Utility had discussed included it already.
+Additionally, even without past experience, attentive teams could have detected the pattern by analyzing historical data: best asks occasionally priced close to best bid consistently getting filled was a clear signal.
+Moreover, similar smart-taker behavior had appeared in assets like Rainforest Resin, providing further hints.
+Thus, strong preparation, deep intuition about the Prosperity simulation, and diligent empirical observation were all key factors in unlocking the full potential of Macarons.
+Those who recognized and exploited the hidden taker bot captured some of the highest single-product profits available in the entire competition.
 
 <img src="https://github.com/user-attachments/assets/9985cdce-a23c-4f89-b288-7709160c1548"
      alt="Dynamic dashboard"
@@ -340,15 +364,14 @@ text
      alt="Dynamic dashboard"
      width="70%" />
      
-text
-
 ## Round 5
   
-### Macarons
-
-text
-
-
+In Round 5, no new products were introduced.
+The main change was that historical trader IDs were made public, allowing teams to directly identify which trades were executed by specific bots.
+For us, this did not fundamentally alter our strategies, as we had already identified Olivia’s behavior early in the competition.
+However, we took this opportunity to update our detection logic: instead of inferring Olivia’s trades indirectly by tracking running minimums and maximums, we now simply checked the trader ID directly.
+This adjustment helped eliminate false positives, reduced the risk of missing genuine Olivia trades, and saved a few hundred SeaShells over the course of the round.
+As with every previous round, we also re-optimized all relevant parameters based on the latest available data to ensure robustness going into the final evaluation.
 
 # Manual Challenge
 
