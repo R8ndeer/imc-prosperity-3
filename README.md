@@ -223,6 +223,7 @@ The critical insight for Kelp was recognizing that, despite small movements, the
 </tr>
 </table>
 
+
 <table>
 <tr valign="top">
 <td width="100%" align="center">
@@ -232,7 +233,7 @@ The critical insight for Kelp was recognizing that, despite small movements, the
 
 <tr valign="top">
 <td width="100%" align="center">
-  <img src="https://github.com/user-attachments/assets/80b5f2cb-ae7a-400b-aff0-311e977c2d58"
+  <img src="https://github.com/user-attachments/assets/5b7828a5-df9b-44ae-ab11-6461ee026a51"
        alt="Static, normalized dashboard"
        width="100%" />
 </td>
