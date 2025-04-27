@@ -479,6 +479,34 @@ This taker bot executed approximately 60% of eligible trades, meaning that — i
 Over the course of 10,000 timesteps with a 10-unit conversion limit, this small price improvement could theoretically yield up to 300,000 SeaShells.
 Of course, those conditions were not always present and realistic optimal profits were around 160,000 and 130,000 SeaShells across the two rounds. Still, the magnitude of this hidden edge made Macarons a very lucrative product of the competition.
 
+
+<table>
+<tr valign="top">
+<td width="70%">
+  <img src="https://github.com/user-attachments/assets/9985cdce-a23c-4f89-b288-7709160c1548"
+       alt="Dynamic dashboard"
+       width="100%" />
+</td>
+<td width="30%">
+  <strong>Figure 9a: Macarons Microstructure</strong><br/>
+  <em>This plot shows many (~60%) fills at a price better than local best bid. The orange indicator shows the external ask after costs (price for which we can convert negative inventory). It also shows that a straight forward local best bid to external ask arbitrage was currently not profitable.</em>
+</td>
+</tr>
+
+<tr valign="top">
+<td width="70%">
+  <img src="https://github.com/user-attachments/assets/6822bdc7-1f44-4d43-9df3-289c6e7900a9"
+       alt="Static, normalized dashboard"
+       width="100%" />
+</td>
+<td width="30%">
+  <strong>Figure 9b: Macarons Microstructure (normalized)</strong><br/>
+  <em>This plot shows the same as 9a except it is normalized be the orange indicator (external ask after costs). It clearly demonstrates the price improvement versus local best bid. While in the snippet, the local best bid was unprofitable with about -1 SeaShell, we often got filled at a 2 SeaShell profitable opportunity.</em>
+</td>
+</tr>
+</table>
+
+
 Our final strategy focused on reliably exploiting this hidden arbitrage.
 Each timestep, we placed limit sell orders for Macarons at precisely int(externalBid + 0.5), the maximum price that could still trigger fills from the taker bot.
 We quoted only 10 units per timestep (the conversion limit), which meant we captured approximately 60% of the theoretical maximum profits, in line with the taker's acceptance probability.
@@ -492,13 +520,7 @@ Moreover, similar smart-taker behavior had appeared in assets like Rainforest Re
 Thus, strong preparation, deep intuition about the Prosperity simulation, and diligent empirical observation were all key factors in unlocking the full potential of Macarons.
 Those who recognized and exploited the hidden taker bot captured some of the highest single-product profits available in the entire competition.
 
-<img src="https://github.com/user-attachments/assets/9985cdce-a23c-4f89-b288-7709160c1548"
-     alt="Dynamic dashboard"
-     width="70%" />
 
-<img src="https://github.com/user-attachments/assets/6822bdc7-1f44-4d43-9df3-289c6e7900a9"
-     alt="Dynamic dashboard"
-     width="70%" />
      
 ## Round 5
   
