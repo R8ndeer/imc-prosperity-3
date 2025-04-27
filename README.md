@@ -42,7 +42,7 @@ If you're more interested in how we consistently stayed at the top across multip
 <br />
 <a href="https://www.linkedin.com/in/timo-diehm">How to (Almost) Win Against Thousands of Other Teams (link). </a>
 
-## the competition 🏆
+## IMC Prosperity 3 🏆
 
 IMC Prosperity 3 (2025) was a global algorithmic trading competition that ran over five rounds and fifteen days, with 12,000+ teams participating worldwide.
 The challenge tasked teams with designing trading algorithms to maximize profits across a variety of simulated products — replicating real-world opportunities such as market making, statistical arbitrage, scalping, and locational arbitrage etc.
@@ -58,34 +58,37 @@ Although these accounted for only a small fraction of total PnL, they were a fun
 
 For full documentation on the algorithmic trading environment and more competition context, please refer to the Prosperity 3 Wiki.
 
-## Structure
+
+## Structural Overview
 
 - [Tools](#tools)
-- [Algorithmic Part](#algorithmic-challenge)
-- [Round 1](#round-1)
-- [Round 2](#round-2)
-- [Round 3](#round-3)
-- [Round 4](#round-4)
-- [Round 5](#round-5)
-- [Manual Part](#manual-challenge)
+- [Algorithmic Challenge](#algorithmic-challenge)
+  - [Round 1: Market Making](#round-1-market-making)
+  - [Round 2: ETF Statistical Arbitrage](#round-2-etf-statistical-arbitrage)
+  - [Round 3: Options Scalping](#round-3-options-scalping)
+  - [Round 4: Location Arbitrage](#round-4-location-arbitrage)
+  - [Round 5: Trader IDs](#round-5-trader-ids)
+- [Manual Challenge](#manual-challenge)
 - [FAQ](#frequently-asked-questions)
-- [How to properly backtest?](#how-to-properly-backtest)
-- [What Price to use?](#what-price-to-use)
-- [How to break into quant trading?](#how-to-break-into-quant-trading)
-- [Discord useful?](#discord-useful)
-- [What else did we try?](#what-else-did-we-try)
+  - [How to properly backtest?](#how-to-properly-backtest)
+  - [What Price to use?](#what-price-to-use)
+  - [How to break into quant trading?](#how-to-break-into-quant-trading)
+  - [Is Discord useful?](#discord-useful)
+  - [What else did we try?](#what-else-did-we-try)
 
-## tools
+
+
+## Tools
 
 Having the right tools prepared before the competition is critical for maximum efficiency during the competition itself.
 Prosperity 2’s data was publicly available, allowing teams to familiarize themselves with the data formats, set up the tutorial environment early, and test their algorithms and logging infrastructure well before the official start of Prosperity 3.
 
-### backtester 🔙
+### Backtester
 
 For backtesting, we mainly relied on our own forked version of Jasper Merle’s open-source backtester (jmerle/prosperity-backtester) alongside the Prosperity website’s own backtesting functionality.
 Each served different, specific purposes in our workflow — for a detailed explanation of how we approached backtesting, please refer to the Backtesting Section.
 
-### dashboard 💨
+### Dashboard
 
 We developed our own dashboard as a preparation for Prosperity 2, and further updated and improved it before Prosperity 3 — adding features that we didn’t have time to implement during the first competition.
 Since this dashboard will be heavily referenced when we explain our strategies and insights across all products, we’ll first give a detailed description of it here.
@@ -159,7 +162,7 @@ Notes:
 
 # Algorithmic Challenge
 
-## Round 1
+## Round 1: Market Making
 
 ### Rainforest Resin 🔮
 
@@ -308,7 +311,7 @@ Our final strategy for Squid Ink focused purely on following this daily-extrema 
 
 Anyone who carefully analyzed historical Prosperity 2 data or public write-ups — such as Stanford Cardinal’s or Jasper's — could have anticipated similar behaviors and prepared detection logic in advance. We also discovered and executed this strategy on another product in Prosperity 2 without having participated in Prosperity 1. Early identification of this behavior consistently netted us around 8,000 SeaShells per round, providing a stable and important edge in Round 1.
 
-## Round 2
+## Round 2: ETF Statistical Arbitrage
 
 ### Gift Baskets 🥀
 
@@ -410,7 +413,7 @@ Through the base strategy, we achieved around 20,000–30,000 SeaShells per roun
 With the dynamic informed adjustment based on Croissants, that improved to 30,000–40,000 SeaShells per round, plus another 15,000 SeaShells per round directly from trading Croissants individually.
 
 
-## Round 3
+## Round 3: Options Scalping
 
 ### Options 🧈
 
@@ -600,7 +603,7 @@ Note: After the fourth round, where the mean reversion strategy resulted in a lo
 
 
 
-## Round 4
+## Round 4: Location Arbitrage
   
 ### Macarons
 
@@ -683,8 +686,7 @@ Thus, strong preparation, deep intuition about the Prosperity simulation, and di
 Those who recognized and exploited the hidden taker bot captured some of the highest single-product profits available in the entire competition.
 
 
-     
-## Round 5
+## Round 5: Trader IDs
   
 In Round 5, no new products were introduced.
 The main change was that historical trader IDs were made public, allowing teams to directly identify which trades were executed by specific bots.
@@ -693,16 +695,57 @@ However, we took this opportunity to update our detection logic: instead of infe
 This adjustment helped eliminate false positives, reduced the risk of missing genuine Olivia trades, and saved a few hundred SeaShells over the course of the round.
 As with every previous round, we also re-optimized all relevant parameters based on the latest available data to ensure robustness going into the final evaluation.
 
+
+
+
 # Manual Challenge
+
+## Round 1: TEXT
+
+text
+
+## Round 2: TEXT
+
+text
+
+## Round 3: TEXT
+
+text
+
+## Round 4: TEXT
+
+text
+
+## Round 5: TEXT
+
+text
+
+
+
 
 
 # Frequently Asked Questions
 
 ## How to properly backtest? 
-## What Price to use?
+
+text
+
+## What is Wall Mid and why did we use it?
+
+text
+
 ## How to break into quant trading?
+
+text
+
 ## Discord useful?
+
+text
+
 ## What else did we try?
+
+text
+
 
 
 
