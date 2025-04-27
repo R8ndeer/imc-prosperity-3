@@ -42,6 +42,8 @@ If you're more interested in how we consistently stayed at the top across multip
 <br />
 <a href="https://www.linkedin.com/in/timo-diehm">How to (Almost) Win Against Thousands of Other Teams (link). </a>
 
+<br>
+
 ## IMC Prosperity 3 🏆
 
 IMC Prosperity 3 (2025) was a global algorithmic trading competition that ran over five rounds and fifteen days, with 12,000+ teams participating worldwide.
@@ -58,6 +60,7 @@ Although these accounted for only a small fraction of total PnL, they were a fun
 
 For full documentation on the algorithmic trading environment and more competition context, please refer to the Prosperity 3 Wiki.
 
+<br>
 
 ## Structural Overview
 
@@ -69,6 +72,11 @@ For full documentation on the algorithmic trading environment and more competiti
   - [Round 4: Location Arbitrage](#round-4-location-arbitrage)
   - [Round 5: Trader IDs](#round-5-trader-ids)
 - [Manual Challenge](#manual-challenge)
+  - [Round 1: TEXT](#round-1-text)
+  - [Round 2: TEXT](#round-2-text)
+  - [Round 3: TEXT](#round-3-text)
+  - [Round 4: TEXT](#round-4-text)
+  - [Round 5: TEXT](#round-5-text)
 - [FAQ](#frequently-asked-questions)
   - [How to properly backtest?](#how-to-properly-backtest)
   - [What Price to use?](#what-price-to-use)
@@ -76,7 +84,7 @@ For full documentation on the algorithmic trading environment and more competiti
   - [Is Discord useful?](#discord-useful)
   - [What else did we try?](#what-else-did-we-try)
 
-
+<br>
 
 ## Tools
 
@@ -155,10 +163,11 @@ Each numbered section in the dashboard corresponds to a specific functionality:
 7. **Performance and Downsampling Controls** ⚡  
    Adjusts dynamic downsampling and visibility thresholds to prevent lag when visualizing large datasets.
 
-
 Notes:
 - We intentionally avoided any existing known dashboard styles; instead, we focused purely on designing what helped us most during analysis or checking of our algorithm during intense rounds.
 - The visualization choice (scatter plot as order book depth representation) was made based on the specific structure of Prosperity markets — where products typically have only 1–4 meaningful price levels.
+
+<br>
 
 # Algorithmic Challenge
 
@@ -197,6 +206,7 @@ Our final strategy for Rainforest Resin was straightforward. Each timestep, we f
 
 Anyone could have come up with this approach by carefully reading the competition's matching rules and observing the environment during the tutorial round. Realizing that the true price was constant, fills were processed sequentially, and that orders only lived for one timestep simplified the problem dramatically. Having a basic visualization of price levels and logging fill quality would have made it even more obvious. Rainforest Resin alone consistently contributed around 35,000 SeaShells per round to our total PnL.
 
+<br>
 
 ### Kelp ⭐
 
@@ -255,6 +265,8 @@ Our final strategy for Kelp was nearly identical to that for Rainforest Resin. A
 
 Teams that approached Kelp correctly would have first verified whether takers or the market exhibited any predictability, either through simple empirical analysis or by observing that naive strategies (like quoting around the current price) worked well. Realizing that there was no meaningful adverse selection risk meant that treating Kelp identically to Rainforest Resin was the optimal path. On average, Kelp generated around 8,000 SeaShells per round, primarily limited by the tighter spreads compared to the first product.
 
+<br>
+
 ### Squid Ink ⭐
 
 Squid Ink differed from the previous two products mainly in that it had a tighter bid-ask spread relative to its average movement, combined with occasional sharp price jumps. This made pure market-making less attractive, not because of systematic losses, but because it introduced higher variance in realized PnL. In other words, fills could swing more widely in value depending on unpredictable price jumps, even if there was no predictable adverse selection in the classic sense. Officially, the product was described as mean-reverting in the short term, suggesting that mean-reversion strategies might work. However, after investigating the market dynamics more carefully, we discovered an entirely different and more reliable opportunity.
@@ -310,6 +322,8 @@ Our main insight was that one of the anonymous bot traders consistently exhibite
 Our final strategy for Squid Ink focused purely on following this daily-extrema trading behavior, dynamically updating our positions based on detected trades and resetting when invalidations occurred. No active market making or mean reversion trading was used for this product. The result was a low-risk, high-reliability PnL contributor that did not rely on predicting price moves directly.
 
 Anyone who carefully analyzed historical Prosperity 2 data or public write-ups — such as Stanford Cardinal’s or Jasper's — could have anticipated similar behaviors and prepared detection logic in advance. We also discovered and executed this strategy on another product in Prosperity 2 without having participated in Prosperity 1. Early identification of this behavior consistently netted us around 8,000 SeaShells per round, providing a stable and important edge in Round 1.
+
+<br>
 
 ## Round 2: ETF Statistical Arbitrage
 
@@ -412,6 +426,7 @@ Concepts like synthetic replication, mean-reversion modeling (e.g., Ornstein-Uhl
 Through the base strategy, we achieved around 20,000–30,000 SeaShells per round trading baskets.
 With the dynamic informed adjustment based on Croissants, that improved to 30,000–40,000 SeaShells per round, plus another 15,000 SeaShells per round directly from trading Croissants individually.
 
+<br>
 
 ## Round 3: Options Scalping
 
@@ -601,7 +616,7 @@ In terms of results, IV scalping contributed approximately 150,000 SeaShells per
 
 Note: After the fourth round, where the mean reversion strategy resulted in a loss of approximately 30,000 SeaShells, we reassessed its validity. Although we no longer found strong empirical evidence to justify continuing with mean reversion purely on standalone expected value grounds, we knew that several top teams were actively only trading mean reversion strategies. So we figured, if they wouldn't find the IV scalping strategy, they might just accept the coinflip and go all in mean reversion because otherwise they would surely get overtaken by everyone. Facing a 200,000 SeaShell lead at that point, we made a calculated decision to maintain some mean reversion exposure — not because we believed it was necessarily positive EV anymore, but to hedge relatively against the teams still pursuing that angle. We estimated the 95% Value at Risk (VaR) of the mean reversion component to be around 50,000 SeaShells — only about 25% of our lead — leaving us with sufficient margin even if the strategy failed again. Under our assumptions, keeping this balanced exposure maximized our likelihood of securing first place by minimizing relative downside risk while preserving our core scalping profits. This turned out to be the right decision. Although, in the last round some random team very unnaturally jumped from 100+ rank to 1st place, we could keep a healthy distance to all teams that were previously close behind us. 
 
-
+<br>
 
 ## Round 4: Location Arbitrage
   
@@ -619,7 +634,6 @@ Through experimentation, we discovered that offers priced at about int(externalB
 This taker bot executed approximately 60% of eligible trades, meaning that — in expectation — you could sell locally for a price about 3 SeaShells higher than the naive local best bid.
 Over the course of 10,000 timesteps with a 10-unit conversion limit, this small price improvement could theoretically yield up to 300,000 SeaShells.
 Of course, those conditions were not always present and realistic optimal profits were around 160,000 and 130,000 SeaShells across the two rounds. Still, the magnitude of this hidden edge made Macarons a very lucrative product of the competition.
-
 
 <table>
 <tr valign="top">
@@ -671,7 +685,6 @@ Of course, those conditions were not always present and realistic optimal profit
 </table>
 
 
-
 Our final strategy focused on reliably exploiting this hidden arbitrage.
 Each timestep, we placed limit sell orders for Macarons at precisely int(externalBid + 0.5), the maximum price that could still trigger fills from the taker bot.
 We quoted only 10 units per timestep (the conversion limit), which meant we captured approximately 60% of the theoretical maximum profits, in line with the taker's acceptance probability.
@@ -685,6 +698,7 @@ Moreover, similar smart-taker behavior had appeared in assets like Rainforest Re
 Thus, strong preparation, deep intuition about the Prosperity simulation, and diligent empirical observation were all key factors in unlocking the full potential of Macarons.
 Those who recognized and exploited the hidden taker bot captured some of the highest single-product profits available in the entire competition.
 
+<br>
 
 ## Round 5: Trader IDs
   
@@ -695,8 +709,7 @@ However, we took this opportunity to update our detection logic: instead of infe
 This adjustment helped eliminate false positives, reduced the risk of missing genuine Olivia trades, and saved a few hundred SeaShells over the course of the round.
 As with every previous round, we also re-optimized all relevant parameters based on the latest available data to ensure robustness going into the final evaluation.
 
-
-
+<br>
 
 # Manual Challenge
 
@@ -721,17 +734,40 @@ text
 text
 
 
-
+<br>
 
 # Frequently Asked Questions
 
-## How to properly backtest? 
-
-text
-
 ## What is Wall Mid and why did we use it?
 
-text
+The Wall Mid is our best approximation of the true underlying price of a product during trading.
+During testing on the official Prosperity website, it was possible to infer the true underlying price indirectly: by buying or selling a single lot and observing the resulting PnL, which was calculated based on the true internal price rather than market quotes.
+Through careful analysis, we found that the most reliable way to estimate this true price was by identifying the bid wall and ask wall — price levels in the orderbook that consistently showed deep liquidity.
+These "walls" typically corresponded to quotes from designated market makers who appeared to know the true price and simply quoted rounded versions of it (e.g., ±2 ticks around the true value).
+By averaging the prices of the bid wall and ask wall, we obtained a Wall Mid value that was much more stable and accurate than using the raw mid price, which could be heavily distorted by overbidding or undercutting.
+Thus, the Wall Mid provided a robust and low-noise estimate of the fair underlying value, crucial for designing effective strategies.
+
+
+## How to properly backtest? 
+
+A simple rule of thumb we followed:
+if a strategy mainly depended on bot interactions, we backtested using the official Prosperity website;
+if a strategy mainly involved taking or simple quoting logic, we used Jasper’s open-source backtester.
+
+For fast, early-stage prototyping, we often performed quick, vectorized backtests inside Jupyter notebooks.
+This allowed us to rapidly explore ideas before investing time into full-scale simulation.
+
+Jasper’s backtester is very accurate and highly flexible — it allowed us to test across full historical data and easily modify the code to accept additional parameters (which was excellent for systematic optimization).
+However, it cannot fully replicate the subtle nuances of bot behavior, simply because that behavior was not fully observable or modeled.
+For example, the backtester could not correctly simulate the taker bot behavior for Macarons or properly handle conversions; it also could not accurately model potential fill probabilities after inserting liquidity for assets like Rainforest Resin and Kelp.
+
+Thus, our guideline was:
+- For most products (especially beyond Round 1), rely primarily on the backtester.
+- For products where detailed bot interaction mattered (Rainforest Resin, Kelp, Macarons), validate key behaviors using website-based tests.
+
+Critically, we strongly advise:
+never optimize purely for website score.
+Doing so is extremely prone to overfitting on simulation-specific randomness rather than building strategies that generalize.
 
 ## How to break into quant trading?
 
