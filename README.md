@@ -198,7 +198,7 @@ A key insight not just for Rainforest Resin but for all Prosperity products was 
 
 Our final strategy for Rainforest Resin was straightforward. Each timestep, we first immediately took any favorable trades available — buying below 10,000 or selling above it. Afterward, we placed passive quotes slightly better than any existing liquidity (existing orders in orderbook): overbidding on [bids](https://www.investopedia.com/terms/a/bid.asp) and undercutting on [asks](https://www.investopedia.com/terms/a/ask.asp) while maintaining positive edge. If inventory became too skewed, we flattened it at exactly 10,000 to free up risk capacity for the next opportunities. No sophisticated logic or aggressiveness was needed due to the stable true price and the clean snapshot-based trading model.
 
-Anyone could have come up with this approach by carefully studying the competition's matching rules and observing the environment during the tutorial round. Realizing that the true price was constant, fills were processed sequentially, and that orders only lived for one timestep simplified the problem dramatically. Having a basic visualization of price levels and logging fill quality would have made it even more obvious. Rainforest Resin alone consistently contributed around 35,000 SeaShells per round to our total PnL.
+Anyone could have come up with this approach by carefully studying the competition's matching rules and observing the environment during the tutorial round. Realizing that the true price was constant, fills were processed sequentially, and that orders only lived for one timestep simplified the problem dramatically. Having a basic visualization of price levels and logging fill quality would have made it even more obvious. Rainforest Resin alone consistently contributed around 39,000 SeaShells per round to our total PnL.
 
 <br>
 
@@ -257,7 +257,7 @@ The critical insight for Kelp was recognizing that, despite small movements, the
 
 Our final strategy for Kelp was nearly identical to that for Rainforest Resin. At each timestep, we first immediately took any favorable trades available relative to the current wall mid, then placed slightly improved passive orders (overbidding and undercutting) around the fair price. If inventory became too large, we neutralized it by trading at zero edge relative to the current price estimate. No major changes were needed compared to the first product.
 
-Teams that approached Kelp correctly would have first verified whether takers or the market exhibited any predictability, either through simple empirical analysis or by observing that naive strategies (like quoting around the current price) worked well. Realizing that there was no meaningful adverse selection risk meant that treating Kelp identically to Rainforest Resin was the optimal path. On average, Kelp generated around 8,000 SeaShells per round, primarily limited by the tighter spreads compared to the first product.
+Teams that approached Kelp correctly would have first verified whether takers or the market exhibited any predictability, either through simple empirical analysis or by observing that naive strategies (like quoting around the current price) worked well. Realizing that there was no meaningful adverse selection risk meant that treating Kelp identically to Rainforest Resin was the optimal path. On average, Kelp generated around 5,000 SeaShells per round, primarily limited by the tighter spreads compared to the first product.
 
 <br>
 
@@ -315,22 +315,21 @@ Our main insight was that one of the anonymous bot traders consistently exhibite
 
 Our final strategy for Squid Ink focused purely on following this daily-extrema trading behavior, dynamically updating our positions based on detected trades and resetting when invalidations occurred. No active market making or mean reversion trading was used for this product. The result was a low-risk, high-reliability PnL contributor that did not rely on predicting price moves directly.
 
-Anyone who carefully analyzed historical Prosperity 2 data or public write-ups — such as [Stanford Cardinal’s](https://github.com/ShubhamAnandJain/IMC-Prosperity-2023-Stanford-Cardinal) or [Jasper's](https://github.com/jmerle/imc-prosperity-2) — could have anticipated similar behaviors and prepared detection logic in advance. We also discovered and executed this strategy on another product in Prosperity 2 without having participated in Prosperity 1. Early identification of this behavior consistently netted us around 8,000 SeaShells per round, providing a stable and important edge in Round 1.
+Anyone who carefully analyzed historical Prosperity 2 data or public write-ups — such as [Stanford Cardinal’s](https://github.com/ShubhamAnandJain/IMC-Prosperity-2023-Stanford-Cardinal) or [Jasper's](https://github.com/jmerle/imc-prosperity-2) — could have anticipated similar behaviors and prepared detection logic in advance. We also discovered and executed this strategy on another product in Prosperity 2 without having participated in Prosperity 1. Early identification of this behavior consistently netted us on average 8,000 SeaShells per round, providing a stable and important edge in Round 1.
 
 <br>
 
 ## Round 2: ETF Statistical Arbitrage
 
-### Gift Baskets 🥀
+### Picnic Baskets
 
-In Round 2, three new individual products — Croissants, Jams, and Djembes — were introduced alongside two new baskets: PICNIC_BASKET1 and PICNIC_BASKET2.
+In Round 2, three new individual products — Croissants, Jams, and Djembes — were introduced alongside two new baskets: PICNIC_BASKET1 (6x Croissants, 3x Jams, 1x Djembes) and PICNIC_BASKET2 (4x Croissants, 2x Jams).
 Each basket represented a combination of different quantities of the three products, but crucially, it was not possible to directly convert baskets into their underlying constituents.
-This setup clearly simulated a basic ETF (Exchange-Traded Fund) structure: linked assets that normally move together, but which might temporarily deviate, creating arbitrage opportunities.
+This setup clearly simulated a basic ETF (Exchange-Traded Fund) structure: linked assets that normally move together, but which might temporarily deviate, creating statistical arbitrage opportunities.
 In quantitative trading, finding and exploiting such linkages — when the synthetic price of a basket diverges from the sum of its parts — is a classic technique.
 
-A deeper look revealed two main spread opportunities: first, trading the spread between the two baskets adjusted by Djembes (ETF1 - ETF2 + Djembes), and second, trading each basket relative to its synthetic value based on the underlying products (ETF - Constituents).
+A deeper look revealed two main spread opportunities: first, trading the spread between the two baskets adjusted by Djembes (ETF1 - 1.5*ETF2 - Djembes), and second, trading each basket relative to its synthetic value based on the underlying products (ETF - Constituents).
 While both avenues were possible, we quickly identified that comparing baskets directly to their constituent sums was the stronger and more reliable path.
-
 
 
 <table>
@@ -354,8 +353,6 @@ While both avenues were possible, we quickly identified that comparing baskets d
 </td>
 </tr>
 </table>
-
-
 
 When approaching this kind of structure, it's crucial not to blindly apply textbook strategies but to first ask a fundamental question:
 How could the market data have been generated?
@@ -417,8 +414,7 @@ It is important to note that here, "zero" still referred to the base threshold a
 
 Anyone thinking carefully about the problem — starting from generation assumptions, doing proper exploratory data analysis, and resisting the temptation to blindly overfit — could have arrived at a similar approach.
 Concepts like synthetic replication, mean-reversion modeling (e.g., Ornstein-Uhlenbeck processes), and cross-product signal integration are core ideas in quantitative finance.
-Through the base strategy, we achieved around 20,000–30,000 SeaShells per round trading baskets.
-With the dynamic informed adjustment based on Croissants, that improved to 30,000–40,000 SeaShells per round, plus another 15,000 SeaShells per round directly from trading Croissants individually.
+With the dynamic informed adjustment based on Croissants, our strategy made about 40,000–60,000 SeaShells per round on baskets, plus another 20,000 SeaShells per round directly from trading Croissants individually.
 
 <br>
 
@@ -606,9 +602,9 @@ Even without constructing a full volatility smile, simply watching option prices
 On the underlying asset side, basic return autocorrelation analysis and exploratory plotting would hint at mean reversion tendencies.
 Thus, while a strong theoretical background was helpful, a combination of attentive observation, critical data analysis, and statistical common sense would have led to very similar conclusions.
 
-In terms of results, IV scalping contributed approximately 150,000 SeaShells per round, providing strong and stable profits across all rounds. Mean reversion trading was much more volatile, delivering around 100,000, -30,000, and -20,000 SeaShells across the rounds respectively. Despite the swings, our hybrid approach allowed us to achieve consistently positive net results while keeping downside risks manageable.
+In terms of results, IV scalping contributed approximately 100,000 - 150,000 SeaShells per round, providing strong and stable profits across all rounds. Mean reversion trading was much more volatile, delivering around 100,000, -50,000, and -10,000 SeaShells across the rounds respectively. Despite the swings, our hybrid approach allowed us to achieve consistently positive net results while keeping downside risks manageable.
 
-Note: After the fourth round, where the mean reversion strategy resulted in a loss of approximately 30,000 SeaShells, we reassessed its validity. Although we no longer found strong empirical evidence to justify continuing with mean reversion purely on standalone expected value grounds, we knew that several top teams were actively only trading mean reversion strategies. So we figured, if they wouldn't find the IV scalping strategy, they might just accept the coinflip and go all in mean reversion because otherwise they would surely get overtaken by everyone. Facing a 200,000 SeaShell lead at that point, we made a calculated decision to maintain some mean reversion exposure — not because we believed it was necessarily positive EV anymore, but to hedge relatively against the teams still pursuing that angle. We estimated the 95% Value at Risk (VaR) of the mean reversion component to be around 50,000 SeaShells — only about 25% of our lead — leaving us with sufficient margin even if the strategy failed again. Under our assumptions, keeping this balanced exposure maximized our likelihood of securing first place by minimizing relative downside risk while preserving our core scalping profits. This turned out to be the right decision. Although, in the last round some random team very unnaturally jumped from 100+ rank to 1st place, we could keep a healthy distance to all teams that were previously close behind us. 
+Note: After the fourth round, where the mean reversion strategy resulted in a loss of approximately 50,000 SeaShells, we reassessed its validity. Although we no longer found strong empirical evidence to justify continuing with mean reversion purely on standalone expected value grounds, we knew that several top teams were actively only trading mean reversion strategies. So we figured, if they wouldn't find the IV scalping strategy, they might just accept the coinflip and go all in mean reversion because otherwise they would surely get overtaken by everyone. Facing a 200,000 SeaShell lead at that point, we made a calculated decision to maintain some mean reversion exposure — not because we believed it was necessarily positive EV anymore, but to hedge relatively against the teams still pursuing that angle. We estimated the 95% Value at Risk (VaR) of the mean reversion component to be around 50,000 SeaShells — only about 25% of our lead — leaving us with sufficient margin even if the strategy failed again. Under our assumptions, keeping this balanced exposure maximized our likelihood of securing first place by minimizing relative downside risk while preserving our core scalping profits. This turned out to be the right decision. Although, in the last round some random team very unnaturally jumped from 100+ rank to 1st place, we could keep a healthy distance to all teams that were previously close behind us. 
 
 <br>
 
@@ -690,7 +686,7 @@ Similar hidden taker behavior had already appeared in Orchids during Prosperity 
 Additionally, even without past experience, attentive teams could have detected the pattern by analyzing historical data: best asks occasionally priced close to best bid consistently getting filled was a clear signal.
 Moreover, similar smart-taker behavior had appeared in assets like Rainforest Resin, providing further hints.
 Thus, strong preparation, deep intuition about the Prosperity simulation, and diligent empirical observation were all key factors in unlocking the full potential of Macarons.
-Those who recognized and exploited the hidden taker bot captured some of the highest single-product profits available in the entire competition.
+Although, we only made about 80,000 - 100,000 instead of theoretical optimum of 130,000 and 160,000 those who recognized and optimally exploited the hidden taker bot captured some of the highest single-product profits available in the entire competition. 
 
 <br>
 
