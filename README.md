@@ -78,8 +78,8 @@ For full documentation on the algorithmic trading environment and more competiti
   - [Round 4: TEXT](#round-4-text)
   - [Round 5: TEXT](#round-5-text)
 - [FAQ](#frequently-asked-questions)
+  - [What is Wall Mid and why did we use it?](#what-is-wall-mid-and-why-did-we-use-it)
   - [How to properly backtest?](#how-to-properly-backtest)
-  - [What Price to use?](#what-price-to-use)
   - [How to break into quant trading?](#how-to-break-into-quant-trading)
   - [Is Discord useful?](#discord-useful)
   - [What else did we try?](#what-else-did-we-try)
@@ -711,6 +711,27 @@ As with every previous round, we also re-optimized all relevant parameters based
 
 <br>
 
+## Conclusion
+
+Throughout the entire competition, we managed to consistently stay at the very top of the leaderboard, finishing first place in every round except the final one.
+In the last round, the team that ultimately secured first place posted a particularly extraordinary result: a PnL of approximately 850,000 SeaShells, compared to the 200,000–400,000 range that was typical among the other top competitors.
+Meanwhile, they had achieved essentially zero PnL in Round 4, suggesting a highly volatile performance profile.
+While we cannot fully explain the divergence without access to their strategies, such a sharp swing indicates that some amount of luck could have been involved.
+Although it was somewhat unfortunate to lose first place at the very end after leading consistently, we fully accept that in any probabilistic environment, especially competitions with partially stochastic elements, some degree of randomness is inevitable.
+
+Reflecting on our own journey, we attribute our success to a few core principles that were consistently applied across all rounds.
+Most importantly, we placed enormous emphasis on deep structural understanding of each product and market environment.
+Weeks of careful preparation before the competition allowed us to build strong intuition for market microstructure, option pricing behaviors, and statistical pitfalls that many teams might have overlooked.
+Rather than relying on blind optimization or overly complex machine learning models, we focused on simple, robust strategies, critically questioning the validity of every signal and making sure we understood why an edge should exist before committing to it.
+Throughout the competition, we maintained a disciplined skepticism toward strategies that appeared to work "in backtest" but lacked theoretical or empirical justification.
+
+Ultimately, we are proud of how we approached the challenge: balancing rigor, adaptability, and humility throughout.
+While the final ranking might not fully reflect the consistent quality of our decisions, we believe that the methodology and principles we applied offer a much deeper measure of success — and serve as a strong foundation for eventual future competitions and real-world trading alike.
+
+PS: How does it feel to get smoked by some business undergrads? 😜
+
+<br>
+
 # Manual Challenge
 
 ## Round 1: TEXT
@@ -769,17 +790,71 @@ Critically, we strongly advise:
 never optimize purely for website score.
 Doing so is extremely prone to overfitting on simulation-specific randomness rather than building strategies that generalize.
 
+## How to build the skills and knowledge needed to compete at a high level?
+
+Competing at the top level in algorithmic trading competitions requires building a very strong and well-rounded skill set — much broader than just knowing how to code.
+Here’s what worked for us:
+
+Structured learning: Start with a solid technical foundation. Years ago, we took structured courses like the Udemy course on [Algorithmic Trading](https://www.udemy.com/course/algorithmic-trading-with-python-and-machine-learning/) (very often on sale for like 10 bucks or so) to understand the basics of trading, order books, strategy design, and risk management.
+
+YouTube and online resources: We supplemented formal education with countless hours of watching educational YouTube channels (e.g., QuantPy, Khan Academy for Statistics, QuantConnect tutorials) to stay exposed to new ideas and real-world examples.
+
+Learning by doing: Nothing replaces hands-on experience. We regularly participated in competitions like Prosperity, where you are forced to implement, backtest, and optimize under real constraints.
+
+Personal projects: Independent projects helped a lot. We recommend picking a published financial paper (for example, on statistical arbitrage or market making), trying to implement the strategy yourself, and backtesting it on real historical data.
+For advanced learners, attempting to implement cutting-edge machine learning models (such as time series transformers for financial prediction) is a fantastic way to bridge pure coding with applied quantitative research.
+
+Critical thinking: Always think critically about the "why" behind strategies — don’t just blindly optimize backtests. Understand market microstructure, incentive structures, and trading behaviors at a deep level.
+
+🎯 In short: Master the technical basics first, but real expertise is built by iterating, experimenting, and failing forward in personal projects and competitive environments.
+
 ## How to break into quant trading?
 
-text
+Breaking into top-tier quant trading actually requires not too much of technical strength but rather preparation and strategic positioning:
+
+Strong academic background: Attending a prestigious university (especially in fields like mathematics, statistics, computer science, physics, or engineering) definitely helps open doors.
+It’s not strictly mandatory — but for highly competitive firms, it strongly increases your chances.
+
+Technical and probability skills:
+Firms test heavily on mental math, probability theory, brain teasers, and game theory during interviews.
+Sites like tradinginterview.com are excellent resources to practice typical quant interview questions.
+
+Coding ability:
+Even "trading" roles often involve coding screens now.
+You don’t need to be a LeetCode grandmaster, but you should be comfortable with Python (and optionally C++/Java for dev roles).
+
+Personal projects and competitions:
+Having actual projects (like your own trading models or backtesters) or strong placements in competitions (like Prosperity) is a massive differentiator in your resume.
+
+Communication and intuition:
+Beyond pure technical skills, firms want people who can explain intuition clearly, think about risk vs. reward critically, and adapt fast under uncertainty.
+Practicing mock interviews and explaining your trading strategies or competition approaches out loud is a huge help.
+
+🎯 In short: Build strong math and coding foundations, practise probability/game theory interviews extensively, and prove your ability to think like a trader through real-world experience.
 
 ## Discord useful?
 
-text
+Yes, definitely.
+Being active on the official competition Discord server can be extremely valuable:
+tips, hints, and clarifications from moderators are often shared early, and it’s a great place to ask technical questions or discuss strategies with other participants.
+Staying on top of Discord discussions is crucial, as important insights — or even leaks of good strategies — sometimes happen informally in chat.
+
+However, caution is essential.
+Discord is also full of noise:
+there are many inexperienced participants, as well as occasional scammers, so never share sensitive details about your strategy with random people.
+Additionally, a form of psychological warfare is common: participants might post seemingly unbelievable backtesting results, either because they have massively overfitted and will likely collapse in live rounds, or because they intentionally fake screenshots to create panic among competitors.
+It’s important to stay calm, stick to your own validation methods, and avoid the trap of overfitting or changing your approach impulsively just because of noise on Discord.
+
+🎯 In short: Use Discord strategically to stay informed — but maintain a cool head and focus on your own robust development process.
 
 ## What else did we try?
 
-text
+At one point, we attempted a more unconventional idea:
+we extracted the first 100 or so returns from a true PnL series and tried to reverse-engineer a possible random seed that might have been used to generate it.
+Assuming the underlying data could have been produced by a pseudorandom number generator (with minor transformations),
+we compared the observed returns to randomly generated sequences from all 4 billion possible seeds in NumPy, running the search on a Raspberry Pi for about 24 hours.
+Unfortunately, no matching seed was found — but it was a fun experiment nonetheless!
+
 
 
 
