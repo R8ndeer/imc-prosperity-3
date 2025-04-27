@@ -46,19 +46,15 @@ If you're more interested in how we consistently stayed at the top across multip
 
 ## IMC Prosperity 3 🏆
 
-IMC Prosperity 3 (2025) was a global algorithmic trading competition that ran over five rounds and fifteen days, with 12,000+ teams participating worldwide.
-The challenge tasked teams with designing trading algorithms to maximize profits across a variety of simulated products — replicating real-world opportunities such as market making, statistical arbitrage, scalping, and locational arbitrage etc.
+IMC Prosperity 3 (2025) was a global [algorithmic trading](https://www.investopedia.com/terms/a/algorithmictrading.asp) competition that ran over five rounds and fifteen days, with 12,000+ teams participating worldwide. The challenge tasked teams with designing trading algorithms to maximize profits across a variety of simulated products — replicating real-world opportunities such as [market making](https://www.investopedia.com/terms/m/marketmaker.asp), [statistical arbitrage](https://www.investopedia.com/terms/s/statisticalarbitrage.asp), [scalping](https://www.investopedia.com/terms/s/scalping.asp), and [locational arbitrage](https://www.investopedia.com/terms/a/arbitrage.asp).
 
-The competition was gamified: each team represented an "island" trading fictional products like Kelp, Squid Ink, Picnic Baskets (an ETF analog), and Volcanic Rock Vouchers (an options analog), using SeaShells as the in-game currency.
-It started with just three products in Round 1 and progressively expanded to 15 products by the final round.
+The competition was gamified: each team represented an "island" trading fictional products like Kelp, Squid Ink, Picnic Baskets (an [ETF](https://www.investopedia.com/terms/e/etf.asp) analog), and Volcanic Rock Vouchers (an [options](https://www.investopedia.com/terms/o/option.asp) analog), using SeaShells as the in-game currency. It started with just three products in Round 1 and progressively expanded to 15 products by the final round.
 
-In each round, teams submitted an updated version of their trading algorithm, which was then independently evaluated against a marketplace of bot participants.
-Teams could study and optimize their algorithms by analyzing bot behaviors and interactions (e.g. predictable quoting or trading patterns) as well as statistical patterns in the price series themselves — both within a single product and across multiple related products (such as deviations between an ETF and its underlying constituents).The profit and loss (PnL) from this evaluation determined each team's standing relative to all others on the global leaderboard.
+In each round, teams submitted an updated version of their trading algorithm, which was then independently evaluated against a marketplace of bot participants. Teams could study and optimize their algorithms by analyzing bot behaviors and interactions (e.g., predictable quoting or trading patterns) as well as statistical patterns in the price series themselves — both within a single product and across multiple related products (such as deviations between an ETF and its underlying constituents). The profit and loss (PnL) from this evaluation determined each team's standing relative to all others on the global leaderboard.
 
-In addition to algorithmic trading, each round featured a manual trading challenge.
-Although these accounted for only a small fraction of total PnL, they were a fun aspect of the competition, often involving optimization under uncertainty, game-theoretic decision-making, or news-based trading tasks.
+In addition to algorithmic trading, each round featured a manual trading challenge. Although these accounted for only a small fraction of total PnL, they were a fun aspect of the competition, often involving optimization under uncertainty, game-theoretic decision-making, or news-based trading tasks.
 
-For full documentation on the algorithmic trading environment and more competition context, please refer to the Prosperity 3 Wiki.
+For full documentation on the algorithmic trading environment and more competition context, please refer to the [Prosperity 3 Wiki](https://imc-prosperity.notion.site/Prosperity-3-Wiki-19ee8453a09380529731c4e6fb697ea4).
 
 <br>
 
