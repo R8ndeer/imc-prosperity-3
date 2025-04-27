@@ -723,7 +723,6 @@ text
 
 
 
-
 # Frequently Asked Questions
 
 ## How to properly backtest? 
