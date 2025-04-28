@@ -1,4 +1,4 @@
-# Frankfurt Hedgehogs 📈
+# Frankfurt Hedgehogs 🦔
 
 This writeup shares our algorithm and insights that brought us to 2nd place globally in IMC Prosperity 3 (2025). Outperforming (almost) all other 12,000+ teams, we achieved a final score of 1,433,876 SeaShells but unfortunately we didn't win the 10,000$ prize for it as we had already earned prize money in last year's competition :)
 
@@ -13,13 +13,13 @@ This writeup shares our algorithm and insights that brought us to 2nd place glob
       </td>
       <td align="center" valign="top" width="200px">
         <a href="https://www.linkedin.com/in/arne-witt">
-          <img src="https://github.com/user-attachments/assets/8d613436-2c49-4ef9-87d1-7096dc44f23c" width="150;" alt="Arne Witt"/>
+          <img src="https://github.com/user-attachments/assets/c57bbac1-0448-4a6b-8ad1-cbd225790b3d" width="150;" alt="Arne Witt"/>
           <br />
           <p><b>Arne Witt</b></p></a>
       </td>
       <td align="center" valign="top" width="200px">
         <a href="https://www.linkedin.com/in/marvin-schuster">
-          <img src="https://github.com/user-attachments/assets/61ee7433-469e-4a47-9bf6-a203aea6a0d5" width="100px;" alt="Marvin Schuster"/>
+          <img src="https://github.com/user-attachments/assets/0d885b67-11b8-4794-84d5-995918abe3f0" width="150;" alt="Marvin Schuster"/>
           <br />
           <p><b>Marvin Schuster</b></br></p></a><span>*only mental support in Prosperity 3</span>
       </td>
@@ -29,7 +29,7 @@ This writeup shares our algorithm and insights that brought us to 2nd place glob
 
 <br/>
 
-After countless requests, we decided to share our final algorithm along with all of our insights to give back to the Prosperity 3 community. We also believe that sharing advances the competition itself — ensuring that more participants start on the same page for future editions, and encouraging innovation on IMC’s side.
+After countless requests, we decided to share our final algorithm along with all of our insights to give back to the Prosperity 3 community. We believe that sharing our code advances the competition itself — ensuring that more participants start on the same page for future iterations, and encouraging innovation on IMC’s side.
 While Prosperity 3 already introduced many new products and trading styles, there is still a lot of untapped potential — especially in designing bot behaviors that create deeper and more exploitable opportunities for highly advanced teams.
 We realize that fellow or future participants have varying levels of experience with quant and algorithmic trading, so we tried to make this write-up as detailed and accessible as possible. Some topics are just too deep to explain in a short paragraph, so we included links to external resources that less experienced readers should carefully study.
 
@@ -44,7 +44,7 @@ If you're more interested in how we consistently stayed at the top across multip
 
 <br>
 
-## IMC Prosperity 3 🏆
+## IMC Prosperity 3
 
 IMC Prosperity 3 (2025) was a global [algorithmic trading](https://www.investopedia.com/terms/a/algorithmictrading.asp) competition that ran over five rounds and fifteen days, with 12,000+ teams participating worldwide. The challenge tasked teams with designing trading algorithms to maximize profits across a variety of simulated products — replicating real-world opportunities such as [market making](https://www.investopedia.com/terms/m/marketmaker.asp), [statistical arbitrage](https://www.investopedia.com/terms/s/statisticalarbitrage.asp), [scalping](https://www.investopedia.com/terms/s/scalping.asp), and [locational arbitrage](https://www.investopedia.com/terms/a/arbitrage.asp).
 
@@ -74,10 +74,10 @@ For full documentation on the algorithmic trading environment and more competiti
   - [Round 4: Suitcases](#round-4-suitcases)
   - [Round 5: News Trading](#round-5-news-trading)
 - [FAQ](#frequently-asked-questions)
-  - [What is Wall Mid and why did we use it?](#what-is-wall-mid-and-why-did-we-use-it)
+  - [What is the Wall Mid and why did we use it?](#what-is-the-wall-mid-and-why-did-we-use-it)
   - [How to properly backtest?](#how-to-properly-backtest)
   - [How to break into quant trading?](#how-to-break-into-quant-trading)
-  - [Is Discord useful?](#discord-useful)
+  - [Is the Discord Channel useful?](#is-the-discord-channel-useful)
   - [What was going on with all the hardcoding in the first two rounds?](#what-was-going-on-with-all-the-hardcoding-in-the-first-two-rounds)
   - [What else did we try?](#what-else-did-we-try)
 
@@ -120,20 +120,20 @@ Markers represent **trades**:
 
 Each numbered section in the dashboard corresponds to a specific functionality:
 
-1. **Hoverable Tooltip** 🖱️  
+1. **Hoverable Tooltip**
    Displays who traded, how much, and at what price at the hovered timestamp.
 
-2. **PnL Panel** 💰  
+2. **PnL Panel**
    Shows the profit and loss for the currently selected product.
 
-3. **Position Panel** 📊  
+3. **Position Panel**
    Displays the net position for the selected product over time.
 
-4. **Log Viewer** 🧾  
+4. **Log Viewer**
    Parses our own logger outputs into a clean, timestamp-synced view.  
    Always matches the time currently hovered over in the main plot.
 
-5. **Selection Controls** 🎯  
+5. **Selection Controls**
    Allows selecting:
    - The log file.
    - The product (e.g. Kelp).
@@ -143,7 +143,7 @@ Each numbered section in the dashboard corresponds to a specific functionality:
    By selecting an indicator (e.g., [WallMid](#what-is-wall-mid-and-why-did-we-use-it) — our proxy for the "true price"), all prices can be normalized relative to it.  
    This is extremely useful for visualizing strategies like mean reversion (When having **PICNIC_BASKET1** selected normalizing by the sum of its constituents perfectly demonstrates the mean reversion of the [basket's premium](https://www.fidelity.com/learning-center/investment-products/etf/premiums-discounts-etfs) still maintaining the orderbook plotting style).
 
-6. **Trade Filtering and Visualization** 🔎  
+6. **Trade Filtering and Visualization**
    Controls what types of trades and order book elements to display:
    - Toggle order book levels.
    - Toggle all trades, specific trader groups or specific traders:
@@ -154,7 +154,7 @@ Each numbered section in the dashboard corresponds to a specific functionality:
      - **F** (our own trades)
    - Set quantity filters to only show trades within a specified size range, especially helpful when trader IDs still unknown.
 
-7. **Performance and Downsampling Controls** ⚡  
+7. **Performance and Downsampling Controls**
    Adjusts dynamic downsampling and visibility thresholds to prevent lag when visualizing large datasets.
 
 Notes:
@@ -167,7 +167,7 @@ Notes:
 
 ## Round 1: Market Making
 
-### Rainforest Resin 🔮
+### Rainforest Resin
 
 Rainforest Resin was the simplest and most beginner-friendly product in Prosperity 3, perfectly suited to teach the fundamentals of [market making](https://www.investopedia.com/terms/m/marketmaker.asp). The product’s true price was permanently fixed at 10,000, meaning there were no intrinsic price movements to worry about. This setup clearly demonstrated the roles of [makers](https://www.cmegroup.com/education/courses/trading-and-analysis/market-makers-vs-market-takers.html#market-maker) and [takers](https://www.cmegroup.com/education/courses/trading-and-analysis/market-makers-vs-market-takers.html#market-taker): takers would cross the true price by either buying above 10,000 or selling below it, while makers posted passive orders hoping to be [matched](https://www.investopedia.com/terms/m/matchingorders.asp). The only thing that mattered for profitability here was the distance between the trade price and the true price — commonly referred to as the "edge." In short, the further you could buy below 10,000 or sell above 10,000, the better.
 
@@ -202,7 +202,7 @@ Anyone could have come up with this approach by carefully studying the competiti
 
 <br>
 
-### Kelp ⭐
+### Kelp
 
 Kelp was very similar in nature to Rainforest Resin, with the only major difference being that its price could move slightly from one timestep to the next. Instead of a fixed true price like Rainforest Resin, Kelp's true price followed a slow [random walk](https://www.investopedia.com/terms/r/randomwalktheory.asp). However, this movement was minor enough that the basic structure of the problem remained unchanged. Buyers and sellers still interacted as takers when crossing the fair price, and makers earned profits based on how far their trades deviated from the true price at the moment of execution.
 
@@ -261,7 +261,7 @@ Teams that approached Kelp correctly would have first verified whether takers or
 
 <br>
 
-### Squid Ink ⭐
+### Squid Ink
 
 Squid Ink differed from the previous two products mainly in that it had a tighter bid-ask spread relative to its average movement, combined with occasional sharp price jumps. This made pure market-making less attractive, not because of systematic losses, but because it introduced higher variance in realized PnL. In other words, fills could swing more widely in value depending on unpredictable price jumps, even if there was no predictable [adverse selection](https://www.investopedia.com/terms/a/adverseselection.asp) in the classic sense. Officially, the product was described as mean-reverting in the short term, suggesting that mean-reversion strategies might work. However, after investigating the market dynamics more carefully, we discovered an entirely different and more reliable opportunity.
 
@@ -420,7 +420,7 @@ With the dynamic informed adjustment based on Croissants, our strategy made abou
 
 ## Round 3: Options Scalping
 
-### Options 🧈
+### Options
 
 In Round 3, the competition introduced a new class of assets: Volcanic Rock Vouchers — effectively call options on a new underlying product, Volcanic Rock (VR).
 There were five vouchers available, each with a distinct strike price — 9500, 9750, 10000, 10250, and 10500 — while the underlying Volcanic Rock itself traded around 10,000.
@@ -428,7 +428,7 @@ Each voucher granted the right (but not the obligation) to buy Volcanic Rock at 
 Importantly, options had limited time to live: starting with seven days until expiry in the first round, decreasing to just two days by the final round.
 Without basic familiarity with options theory, particularly concepts like implied volatility and option pricing models, it would have been difficult to design strong strategies for this product.
 
-#### IV Scalping 🧈
+#### IV Scalping
 
 Our first major insight came from following hints dropped in the competition wiki, suggesting the construction of a volatility smile: plotting implied volatility (IV) against moneyness.
 By fitting a parabola to the observed IVs across strikes and then detrending (subtracting the fitted curve from observed values), we could isolate IV deviations that were no longer dependent on moneyness.
@@ -560,8 +560,10 @@ Statistical analysis, specifically testing for 1-lag negative autocorrelation in
 </tr>
 </table>
 
+#### Gamma Scalping
+The expected value from gamma scalping was consistently positive, as the gains from underlying price movements outweighed the losses from time decay. This made buying options and rehedging the resulting deltas from gamma exposure a relatively low-risk way to generate profit. However, while the approach was stable and mostly safe, the absolute returns were limited. It was a reliable source of small gains, but ultimately, we had a higher risk appetite and wanted better returns.
 
-#### Mean Reversion Trading 🧈
+#### Mean Reversion Trading
 
 Simultaneously, analysis of the underlying Volcanic Rock asset suggested potential mean reversion behavior.
 Return distributions and price dynamics resembled Squid Ink, which was explicitly designed to mean revert in Round 1.
@@ -612,7 +614,7 @@ Note: After the fourth round, where the mean reversion strategy resulted in a lo
   
 ### Macarons
 
-In Round 4, Magnificent Macarons, was introduced.
+In Round 4, Magnificent Macarons was introduced.
 Their fictional value was described as depending on external factors like hours of sunlight, sugar prices, shipping costs, tariffs, and storage capacity.
 Macarons could be traded on the local island exchange via a standard order book, or externally at fixed bid and ask prices, adjusted for im-/export and transportation fees.
 The position limit for Macarons was 75 units, with a conversion limit of 10 units per timestep.
@@ -674,6 +676,50 @@ Of course, those conditions were not always present and realistic optimal profit
 </tr>
 </table>
 
+#### Machine Learning Approach
+Last year, there was a similar round involving a sunlight and humidity index. As far as we know, nobody was able to extract any useful information from these indices, and they were largely considered a false lead.
+This year, we expected the same outcome, but we still felt it was worth checking, just in case there was something hidden there (especially since an admin in the Discord channel had hinted at it).
+Our model was a logistic regression, with a target of a trade being profitable in x timestamps.
+##### Features:
+
+| Variable                  | P-value   | Explanation |
+|---------------------------|-----------|-------------|
+| sunlight_diff              | 0.0000    |Change in sunlight over the last 5 timestamps|
+| sunlight_critical          | 0.0000    |Binary, if sunlight is below a threshold, set to 45|
+| sunlight_critical_time     | 0.0096    |Binary, if sunlight has been critical for more than 30 timestamps|
+| sunlight_diff_critical     | 0.0000    |Change in sunlight if sunlight has been cricital as defined in sunlight_critical_time|
+| sunlight_critical_time_2   | 0.0020    |sunlight_critical_time^1.3|
+| critical_value             | 0.0000    |If sunlight_critical, delta between threshold and current sunlight|
+
+We then do the following based on the ouput of the logisitc regession y:
+- **If \( y = 0 \)**: **Sell**
+- **If \( y = 1 \)**: **Buy**
+- **If \( y \) is between 0.49 and 0.51**: **Hold**
+The thresholds of 0.49 and 0.51 were set through testing.
+
+<table>
+<tr valign="top">
+<td width="100%" align="center">
+  <strong>Figure 10: Logistic Regression Trades</strong>
+</td>
+</tr>
+<tr valign="top">
+<td width="100%" align="center">
+  <img src="https://github.com/user-attachments/assets/fa0def84-a066-46c2-95d9-f28b7e56e9dc"
+       alt="Logistic Regression Trades"
+       width="100%" />
+</td>
+</tr>
+</table>
+
+This approach generated solid historic returns of ~25k per day. However, this approach had multiple issues:
+- Although we employed train-test splits, we lacked confidence in the generalization of the model.
+- Implementation challenges arose, particularly as longer lags required storing more past data, which significantly slowed down the trader. The serialization of trading data took considerable time, and correctly implementing the logistic regression model introduced numerous potential sources of error.
+- Compatibility with export/import arbitrage posed a problem. Since positions can only be converted by reducing them, when the model indicates a long position and we wish to import, we first need to sell our entire inventory plus 10 units.
+
+
+
+#### Final Strategy
 
 Our final strategy focused on reliably exploiting this hidden arbitrage.
 Each timestep, we placed limit sell orders for Macarons at precisely int(externalBid + 0.5), the maximum price that could still trigger fills from the taker bot.
@@ -698,6 +744,7 @@ For us, this did not fundamentally alter our strategies, as we had already ident
 However, we took this opportunity to update our detection logic: instead of inferring Olivia’s trades indirectly by tracking running minimums and maximums, we now simply checked the trader ID directly.
 This adjustment helped eliminate false positives, reduced the risk of missing genuine Olivia trades, and saved a few hundred SeaShells over the course of the round.
 As with every previous round, we also re-optimized all relevant parameters based on the latest available data to ensure robustness going into the final evaluation.
+This was the last round, and we had a sizeable lead to place 2 (~190k), so we decided to play it save, incase ETF spreads don't converge, by half-hedging the baskets. We also limited our mean reversion strategy to minimze risk.
 
 <br>
 
@@ -730,12 +777,21 @@ Our approach to manual trading was more about playing it safe, rather than takin
 
 ## Round 1: FX Arbitrage
 
-Round 1 involved simple Currency Arbitrage. We solved this by iterating over all possible trades, and picking the best option, which ended up being:<br>
+Round 1 involved simple Currency Arbitrage. For a given conversion matrix, find 5 trades to make the most money.
+
+|              | Snowballs | Pizza | Silicon Nuggets | SeaShells |
+|--------------|-----------|-------|-----------------|-----------|
+| Snowballs    | 1.00      | 1.45  | 0.52            | 0.72      |
+| Pizza        | 0.70      | 1.00  | 0.31            | 0.48      |
+| Silicon Nuggets | 1.95   | 3.10  | 1.00            | 1.49      |
+| SeaShells    | 1.34      | 1.98  | 0.64            | 1.00      |
+
+We solved this by iterating over all possible trades, and picking the best option, which ended up being:<br><br>
 `SeaShells -> Snowballs`<br>
 `Snowballs -> Silicon Nuggets`<br>
 `Silicon Nuggets -> Pizza`<br>
 `Pizza -> Snowballs`<br>
-`Snowballs -> SeaShells`<br>
+`Snowballs -> SeaShells`<br><br>
 This led to a profit of about 8.9%
 
 ## Round 2: Containers
@@ -762,13 +818,13 @@ There was the option to pick a second field for 50k, but that wasn’t an option
 
 ## Round 3: Reserve Price
 
-Round 3 was a combination of optimization and game theory. The first part was pure optimization. There was a uniform group of sellers who would sell their goods for any price higher than their reserve price. The distribution of reserve prices was uniform from 160 to 200. You could set one price, at which sellers would trade if it was higher than their reserve price. The goods bought could be resold for 320 after the challenge, so the profit was as follows:
-$$\Pi\left(p\right)=N\cdot\left(\frac{p-160}{40}\right)\cdot\left(320-p\right)$$
-With p being you chosen price, and N being the number of sellers. The optimum of this function is p = 200. 
-The game theory part, however, was more complicated. The setup was similar, but with reserve prices ranging from 250 to 320. However, if your bid was less than the average bid, your profit would be scaled by:
-$$\Pip,µ=320-µ320-p3$$
-where p is your bid, and µ is the average bid. This led to the following payoff function:
-$$\Pi, \mu = N \cdot p - 25070 \cdot 320 - p \cdot \min(320, \mu) \cdot \frac{p^3}{1}$$
+Round 3 was a combination of optimization and game theory. The first part was pure optimization. There was a uniform group of sellers who would sell their goods for any price higher than their reserve price. The distribution of reserve prices was uniform from 160 to 200. You could set one price, at which sellers would trade if it was higher than their reserve price. The goods bought could be resold for 320 after the challenge, so the profit was as follows:<br><br>
+$$\Pi\left(p\right)=N\cdot\left(\frac{p-160}{40}\right)\cdot\left(320-p\right)$$<br><br>
+With $$p$$ being you chosen price, and $$N$$ being the number of sellers. The optimum of this function is $$p = 200$$. 
+The game theory part, however, was more complicated. The setup was similar, but with reserve prices ranging from 250 to 320. However, if your bid was less than the average bid, your profit would be scaled by:<br><br>
+$S(p, \mu) = \left( \frac{320 - \mu}{320 - p} \right)^3$<br><br>
+where p is your bid, and µ is the average bid. This led to the following payoff function:<br><br>
+$$\Pi(p, \mu) = N \cdot \left( p - \frac{250}{70} \right) \cdot (320 - p) + \min \left( \left( \frac{320 - \mu}{320 - p} \right)^3, 1 \right)$$<br><br>
 The optimum of this function occurs at the average, but the derivative shows that being below the average results in a greater loss than being above it. We incorporated this information into our estimate of what other teams would bid, leading us to bid 303. However, it turned out that most teams did not bid more than the optimum without considering game theory (284), so the average ended up being 287 — way lower than our bid. Luckily, the second part had a lower possible profit compared to the first round, so we only lost about 5.5% compared to the optimal solution. 
 
 
@@ -810,7 +866,7 @@ This round involved multiple blunders. First, we had a debate about Ranch Sauce 
 
 # Frequently Asked Questions
 
-## What is Wall Mid and why did we use it?
+## What is the Wall Mid and why did we use it?
 
 The Wall Mid is our best approximation of the true underlying price of a product during trading.
 During testing on the official Prosperity website, it was possible to infer the true underlying price indirectly: by buying or selling a single lot and observing the resulting PnL, which was calculated based on the true internal price rather than market quotes.
@@ -857,7 +913,7 @@ For advanced learners, attempting to implement cutting-edge machine learning mod
 
 Critical thinking: Always think critically about the "why" behind strategies — don’t just blindly optimize backtests. Understand market microstructure, incentive structures, and trading behaviors at a deep level.
 
-🎯 In short: Master the technical basics first, but real expertise is built by iterating, experimenting, and failing forward in personal projects and competitive environments.
+In short: Master the technical basics first, but real expertise is built by iterating, experimenting, and failing forward in personal projects and competitive environments.
 
 ## How to break into quant trading?
 
@@ -881,9 +937,9 @@ Communication and intuition:
 Beyond pure technical skills, firms want people who can explain intuition clearly, think about risk vs. reward critically, and adapt fast under uncertainty.
 Practicing mock interviews and explaining your trading strategies or competition approaches out loud is a huge help.
 
-🎯 In short: Build strong math and coding foundations, practise probability/game theory interviews extensively, and prove your ability to think like a trader through real-world experience.
+In short: Build strong math and coding foundations, practise probability/game theory interviews extensively, and prove your ability to think like a trader through real-world experience.
 
-## Discord useful?
+## Is the Discord Channel useful?
 
 Yes, definitely.
 Being active on the official competition Discord server can be extremely valuable:
@@ -896,7 +952,7 @@ there are many inexperienced participants, as well as occasional scammers, so ne
 Additionally, a form of psychological warfare is common: participants might post seemingly unbelievable backtesting results, either because they have massively overfitted and will likely collapse in live rounds, or because they intentionally fake screenshots to create panic among competitors.
 It’s important to stay calm, stick to your own validation methods, and avoid the trap of overfitting or changing your approach impulsively just because of noise on Discord.
 
-🎯 In short: Use Discord strategically to stay informed — but maintain a cool head and focus on your own robust development process.
+In short: Use Discord strategically to stay informed — but maintain a cool head and focus on your own robust development process.
 
 ## What was going on with all the hardcoding in the first two rounds?
 
