@@ -68,11 +68,11 @@ For full documentation on the algorithmic trading environment and more competiti
   - [Round 4: Location Arbitrage](#round-4-location-arbitrage)
   - [Round 5: Trader IDs](#round-5-trader-ids)
 - [Manual Challenge](#manual-challenge)
-  - [Round 1: TEXT](#round-1-text)
-  - [Round 2: TEXT](#round-2-text)
-  - [Round 3: TEXT](#round-3-text)
-  - [Round 4: TEXT](#round-4-text)
-  - [Round 5: TEXT](#round-5-text)
+  - [Round 1: FX Arbirage](#round-1-fx-arbitrage)
+  - [Round 2: Containers](#round-2-containers)
+  - [Round 3: Reserve Price](#round-3-reserve-price)
+  - [Round 4: Suitcases](#round-4-suitcases)
+  - [Round 5: News Trading](#round-5-news-trading)
 - [FAQ](#frequently-asked-questions)
   - [What is Wall Mid and why did we use it?](#what-is-wall-mid-and-why-did-we-use-it)
   - [How to properly backtest?](#how-to-properly-backtest)
@@ -723,11 +723,12 @@ PS: How does it feel to get smoked by some business undergrads? 😜
 
 <br>
 
+
 # Manual Challenge
 
 Our approach to manual trading was more about playing it safe, rather than taking risks. We knew from Prosperity2 that the manual challenges would involve optimization problems, like Currency Arbitrage, but also questions involving game theory, where it would be almost impossible to pick the best options without being very lucky.
 
-## Round 1: Currency Arbitrage
+## Round 1: FX Arbitrage
 
 Round 1 involved simple Currency Arbitrage. We solved this by iterating over all possible trades, and picking the best option, which ended up being:<br>
 `SeaShells -> Snowballs`<br>
@@ -737,7 +738,7 @@ Round 1 involved simple Currency Arbitrage. We solved this by iterating over all
 `Snowballs -> SeaShells`<br>
 This led to a profit of about 8.9%
 
-## Round 2: Game Theory
+## Round 2: Containers
 
 Round 2 was the first round that involved game theory, where you had to pick one or two out of ten squares, and your profit was inversely proportional to the percentage of other participants who picked the same square. Additionally, there was a set number of island inhabitants also choosing containers. Each container contained 10,000 SeaShells, multiplied by a known factor between 10 and 90, which was then split between the teams and the inhabitants, leading to the following payoff formula:
 
@@ -759,7 +760,7 @@ We avoided 37 to steer clear of the bias people have toward the number 37. 10 se
 There was the option to pick a second field for 50k, but that wasn’t an option for us, as our prediction only had two fields that made slightly more than 50k. Assuming everybody only picked one field, the average profit was around ~34k, so we still made a reasonable amount more than the average.
 
 
-## Round 3: Optimization + Game Theroy
+## Round 3: Reserve Price
 
 Round 3 was a combination of optimization and game theory. The first part was pure optimization. There was a uniform group of sellers who would sell their goods for any price higher than their reserve price. The distribution of reserve prices was uniform from 160 to 200. You could set one price, at which sellers would trade if it was higher than their reserve price. The goods bought could be resold for 320 after the challenge, so the profit was as follows:
 $$\Pi\left(p\right)=N\cdot\left(\frac{p-160}{40}\right)\cdot\left(320-p\right)$$
@@ -771,7 +772,7 @@ $$\Pi, \mu = N \cdot p - 25070 \cdot 320 - p \cdot \min(320, \mu) \cdot \frac{p^
 The optimum of this function occurs at the average, but the derivative shows that being below the average results in a greater loss than being above it. We incorporated this information into our estimate of what other teams would bid, leading us to bid 303. However, it turned out that most teams did not bid more than the optimum without considering game theory (284), so the average ended up being 287 — way lower than our bid. Luckily, the second part had a lower possible profit compared to the first round, so we only lost about 5.5% compared to the optimal solution. 
 
 
-## Round 4: Game Theory
+## Round 4: Suitcases
 
 Round 4 was identical to the challenge in Round 2, just with a different number of fields and a second choice available for 25k instead of 50k. We employed the same strategy, which led to the following table:
 | Multiplier | Predicted % | Actual % | Rank Predicted | Rank Actual |
