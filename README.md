@@ -690,14 +690,18 @@ This year, we expected the same outcome, but we still felt it was worth checking
 Our model was a logistic regression, with a target of a trade being profitable in x timestamps.
 ##### Features:
 
-| Variable                  | P-value   | Explanation |
-|---------------------------|-----------|-------------|
-| sunlight_diff              | 0.0000    |Change in sunlight over the last 5 timestamps|
-| sunlight_critical          | 0.0000    |Binary, if sunlight is below a threshold, set to 45|
-| sunlight_critical_time     | 0.0096    |Binary, if sunlight has been critical for more than 30 timestamps|
-| sunlight_diff_critical     | 0.0000    |Change in sunlight if sunlight has been cricital as defined in sunlight_critical_time|
-| sunlight_critical_time_2   | 0.0020    |sunlight_critical_time^1.3|
-| critical_value             | 0.0000    |If sunlight_critical, delta between threshold and current sunlight|
+| Feature                  | Coefficient | P-value   | Explanation                                                       |
+|---------------------------|------------|-----------|-------------------------------------------------------------------|
+| sunlight_diff              | -2.0517   | 0.0000    | Change in sunlight over the last 5 timestamps                    |
+| sunlight_critical          | 0.4737    | 0.0000    | Binary, if sunlight is below a threshold, set to 45              |
+| sunlight_critical_time     | -0.0014   | 0.0096    | Binary, if sunlight has been critical for more than 30 timestamps |
+| sunlight_diff_critical     | -0.0020   | 0.0000    | Change in sunlight if sunlight has been critical as defined in sunlight_critical_time |
+| sunlight_critical_time_2   | 0.0001    | 0.0020    | sunlight_critical_time^1.3                                        |
+
+
+All variables produced highly significant p-values and plausible coefficients. These are only a subset of the tested features, and had we employed this strategy, we would have faced higher scrutiny.
+We also tested having a lagged pricea as a feature, which introduced trading small spikes and mean reversion to our model, but decided against it as this was highly volatile.
+
 
 We then do the following based on the ouput of the logisitc regession y:
 - **If \( y = 0 \)**: **Sell**
