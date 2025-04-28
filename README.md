@@ -13,7 +13,7 @@ This writeup shares our algorithm and insights that brought us to 2nd place glob
       </td>
       <td align="center" valign="top" width="200px">
         <a href="https://www.linkedin.com/in/arne-witt">
-          <img src="https://github.com/user-attachments/assets/61ee7433-469e-4a47-9bf6-a203aea6a0d5" width="150;" alt="Arne Witt"/>
+          <img src="https://github.com/user-attachments/assets/8d613436-2c49-4ef9-87d1-7096dc44f23c" width="150;" alt="Arne Witt"/>
           <br />
           <p><b>Arne Witt</b></p></a>
       </td>
@@ -21,7 +21,7 @@ This writeup shares our algorithm and insights that brought us to 2nd place glob
         <a href="https://www.linkedin.com/in/marvin-schuster">
           <img src="https://github.com/user-attachments/assets/61ee7433-469e-4a47-9bf6-a203aea6a0d5" width="100px;" alt="Marvin Schuster"/>
           <br />
-          <p><b>Marvin Schuster</b></br></p></a><span>*only mental support this time</span>
+          <p><b>Marvin Schuster</b></br></p></a><span>*only mental support in Prosperity 3</span>
       </td>
     </tr>
   </tbody>
@@ -725,25 +725,84 @@ PS: How does it feel to get smoked by some business undergrads? 😜
 
 # Manual Challenge
 
-## Round 1: TEXT
+Our approach to manual trading was more about playing it safe, rather than taking risks. We knew from Prosperity2 that the manual challenges would involve optimization problems, like Currency Arbitrage, but also questions involving game theory, where it would be almost impossible to pick the best options without being very lucky.
 
-text
+## Round 1: Currency Arbitrage
 
-## Round 2: TEXT
+Round 1 involved simple Currency Arbitrage. We solved this by iterating over all possible trades, and picking the best option, which ended up being:<br>
+`SeaShells -> Snowballs`<br>
+`Snowballs -> Silicon Nuggets`<br>
+`Silicon Nuggets -> Pizza`<br>
+`Pizza -> Snowballs`<br>
+`Snowballs -> SeaShells`<br>
+This led to a profit of about 8.9%
 
-text
+## Round 2: Game Theory
 
-## Round 3: TEXT
+Round 2 was the first round that involved game theory, where you had to pick one or two out of ten squares, and your profit was inversely proportional to the percentage of other participants who picked the same square. Additionally, there was a set number of island inhabitants also choosing containers. Each container contained 10,000 SeaShells, multiplied by a known factor between 10 and 90, which was then split between the teams and the inhabitants, leading to the following payoff formula:
 
-text
+$$\Pi(f) = \frac{M_f \times 10000}{(p_f \times 100) + I_f}$$
 
-## Round 4: TEXT
 
-text
+With $$M_f$$ being the multiplier, $$p_f$$ the percentage of teams, and $$I_f$$ the number of inhabitants for any field $$f$$. 
+We tried to model other teams’ choices by looking at a similar challenge from Prosperity 2. This involved sorting fields by profitability for $$p_f = 0$$. It was assumed that regions with comparable profitability would display similar trends in over- or under-allocation. Applying this predicted the following percentages (by multiplier):
+With $$M_f$$ being the multiplier, $$p_f$$ the percentage of teams, and $$I_f$$ the number of inhabitants for any field $$f$$. 
+We tried to model other teams’ choices by looking at a similar challenge from Prosperity 2. This involved sorting fields by profitability for $$p_f = 0$$. It was assumed that regions with comparable profitability would display similar trends in over- or under-allocation. Applying this predicted the following percentages (by multiplier):
+| Multiplier | Predicted % | Actual % | Rank Predicted | Rank Actual |
+|------------|-------------|----------|----------------|-------------|
+| 37         | 4.95%       | 5.12%    | 1              | 3           |
+| 10         | 1.31%       | 0.94%    | 2              | 2           |
+| 50         | 8.11%       | 8.52%    | 3              | 5           |
 
-## Round 5: TEXT
 
-text
+We avoided 37 to steer clear of the bias people have toward the number 37. 10 seemed too risky, as even a slight overallocation would lead to a much lower profit. We therefore settled for 50, which made about ~40k. In hindsight, this lost us 4k–10k compared to 10 or 37, or about 15k compared to the best field.
+There was the option to pick a second field for 50k, but that wasn’t an option for us, as our prediction only had two fields that made slightly more than 50k. Assuming everybody only picked one field, the average profit was around ~34k, so we still made a reasonable amount more than the average.
+
+
+## Round 3: Optimization + Game Theroy
+
+Round 3 was a combination of optimization and game theory. The first part was pure optimization. There was a uniform group of sellers who would sell their goods for any price higher than their reserve price. The distribution of reserve prices was uniform from 160 to 200. You could set one price, at which sellers would trade if it was higher than their reserve price. The goods bought could be resold for 320 after the challenge, so the profit was as follows:
+$$\Pi\left(p\right)=N\cdot\left(\frac{p-160}{40}\right)\cdot\left(320-p\right)$$
+With p being you chosen price, and N being the number of sellers. The optimum of this function is p = 200. 
+The game theory part, however, was more complicated. The setup was similar, but with reserve prices ranging from 250 to 320. However, if your bid was less than the average bid, your profit would be scaled by:
+$$\Pip,µ=320-µ320-p3$$
+where p is your bid, and µ is the average bid. This led to the following payoff function:
+$$\Pi, \mu = N \cdot p - 25070 \cdot 320 - p \cdot \min(320, \mu) \cdot \frac{p^3}{1}$$
+The optimum of this function occurs at the average, but the derivative shows that being below the average results in a greater loss than being above it. We incorporated this information into our estimate of what other teams would bid, leading us to bid 303. However, it turned out that most teams did not bid more than the optimum without considering game theory (284), so the average ended up being 287 — way lower than our bid. Luckily, the second part had a lower possible profit compared to the first round, so we only lost about 5.5% compared to the optimal solution. 
+
+
+## Round 4: Game Theory
+
+Round 4 was identical to the challenge in Round 2, just with a different number of fields and a second choice available for 25k instead of 50k. We employed the same strategy, which led to the following table:
+| Multiplier | Predicted % | Actual % | Rank Predicted | Rank Actual |
+|------------|-------------|----------|----------------|-------------|
+| 60         | 4.25%       | 6.72%    | 1              | 8           |
+| 37         | 2.09%       | 4.79%    | 2              | 14          |
+| 50         | 2.98%       | 3.92%    | 3              | 6           |
+
+
+Round 2 had shown that the “bias” for the number 37 did not materialize, which led us to choose 37 and 50. However, in this round, our modeling was way off compared to the actual numbers. We made around ~85k, whereas the optimal two options would have made almost 130k. Assuming two picks per team, the average profit was roughly 82k, so we only had a very slight edge over the average.
+
+
+## Round 5: News Trading
+
+Round 5 was, again, very similar to Round 5 of Prosperity 1 & 2. We compiled a table of products and estimated reasonable movements, while looking at the magnitude of moves from the previous iterations. Like all manual rounds, we tried to hedge our risk and reduced position sizes compared to the optimal allocations based on our estimates of moves.
+| Product          | Expected Movement | Actual Movement | Profit | Optimal Profit |
+|------------------|-------------------|-----------------|--------|----------------|
+| Haystacks        | 12%               | -0.48%          | -3240  | 0              |
+| Ranch Sauce      | 10%               | -0.72%          | -2208  | 0              |
+| Cacti Needle     | -30%              | -41.20%         | 32160  | 35360          |
+| Solar Panels     | -30%              | -8.90%          | -6600  | 1640           |
+| Red Flags        | 5%                | 50.90%          | 9700   | 53970          |
+| VR Monocle       | 30%               | 22.40%          | 9600   | 10440          |
+| Quantum Coffee   | -50%              | -66.79%         | 87339  | 92932          |
+| Moonshine        | 0%                | 3.00%           | 0      | 180            |
+| Striped shirts   | 0%                | 0.21%           | 0      | 0              |
+| **∑**            |                   |                 | **126751** | **194522**    |
+
+
+This round involved multiple blunders. First, we had a debate about Ranch Sauce and compromised on 10%; Ranch Sauce ended up remaining unchanged. Haystacks were also overestimated, as there was a similar product in Prosperity 2 where “Sleddit” found new hope in a product, which then went up roughly 12%. Same story for Solar Panels, as they were similar to fishing rods in Prosperity 1. We massively underestimated Red Flags because we wanted to hedge against the possibility that the reserved flags combined with the promise of reprinting would be enough to calm the market down.
+
 
 
 <br>
