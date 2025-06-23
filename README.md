@@ -698,14 +698,15 @@ Our model was a logistic regression, with a target of a trade being profitable i
 | sunlight_critical_time_2   | 0.0001    | 0.0020    | sunlight_critical_time^1.3                                        |
 
 
-All variables produced highly significant p-values and plausible coefficients. These are only a subset of the tested features, and had we employed this strategy, we would have faced higher scrutiny.
-We also tested having a lagged pricea as a feature, which introduced trading small spikes and mean reversion to our model, but decided against it as this was highly volatile.
+All variables produced highly significant p-values and plausible coefficients. These are only a subset of the tested features, and had we employed this strategy, the features would have faced greater scrutiny.
+We also tested having a lagged price as a feature, which introduced trading small spikes and mean reversion to our model, but decided against it as this was highly volatile.
 
 
 We then do the following based on the ouput of the logisitc regession y:
 - **If \( y = 0 \)**: **Sell**
 - **If \( y = 1 \)**: **Buy**
 - **If \( y \) is between 0.49 and 0.51**: **Hold**
+
 The thresholds of 0.49 and 0.51 were set through testing.
 
 <table>
