@@ -432,7 +432,11 @@ class EtfTrader:
         try:
 
             constituents = [self.informed_constituent] + self.hedging_constituents
-            const_prices = [const.wall_mid for const in constituents.sort(key=lambda c: {s: i for i, s in enumerate(ETF_CONSTITUENT_SYMBOLS)}[c.name])]
+            sorted_constituents = sorted(
+                constituents,
+                key=lambda c: {s: i for i, s in enumerate(ETF_CONSTITUENT_SYMBOLS)}[c.name],
+            )
+            const_prices = [const.wall_mid for const in sorted_constituents]
 
             index_price = np.asarray(const_prices) @ np.asarray(ETF_CONSTITUENT_FACTORS[b_idx])
             etf_price = basket.wall_mid
@@ -482,11 +486,11 @@ class EtfTrader:
                 SHORT: -ETF_THR_INFORMED_ADJS[b_idx]
             }.get(self.informed_direction, 0)
 
-            if self.spreads[basket.name] > (BASKET_THRESHOLDS[b_idx] + informed_thr_adj) and basket.max_allowed_sell_volume > 0:
+            if self.spreads[b_idx] > (BASKET_THRESHOLDS[b_idx] + informed_thr_adj) and basket.max_allowed_sell_volume > 0:
                 basket.ask(basket.bid_wall, basket.max_allowed_sell_volume)
                 basket.expected_position -= min(basket.total_mkt_sell_volume, basket.max_allowed_sell_volume)
 
-            elif self.spreads[basket.name] < (-BASKET_THRESHOLDS[b_idx] + informed_thr_adj) and basket.max_allowed_buy_volume > 0:
+            elif self.spreads[b_idx] < (-BASKET_THRESHOLDS[b_idx] + informed_thr_adj) and basket.max_allowed_buy_volume > 0:
                 basket.bid(basket.ask_wall, basket.max_allowed_buy_volume)
                 basket.expected_position += min(basket.total_mkt_buy_volume, basket.max_allowed_buy_volume)
 
