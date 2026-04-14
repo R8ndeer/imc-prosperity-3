@@ -671,15 +671,15 @@ class OptionTrader:
 
         for option in options:
 
-            if option.name in self.indicators['mean_theo_diffs'] and option.name in self.indicators['current_theo_diffs'] and option.name in self.new_switch_mean:
+            if option.name in self.indicators['mean_theo_diffs'] and option.name in self.indicators['current_theo_diffs'] and option.name in self.indicators['switch_means']:
 
-                if self.new_switch_mean[option.name] >= IV_SCALPING_THR:
+                if self.indicators['switch_means'][option.name] >= IV_SCALPING_THR:
 
                     current_theo_diff = self.indicators['current_theo_diffs'][option.name]
                     mean_theo_diff = self.indicators['mean_theo_diffs'][option.name]
 
                     low_vega_adj = 0
-                    if self.vegas.get(option.name, 0) <= 1:
+                    if self.indicators['vegas'].get(option.name, 0) <= 1:
                         low_vega_adj = LOW_VEGA_THR_ADJ
 
 
