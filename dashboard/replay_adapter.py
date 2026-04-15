@@ -83,6 +83,7 @@ def details_for_timestamp(
     trades: pd.DataFrame,
     fills: pd.DataFrame,
     equity: pd.DataFrame,
+    logs: pd.DataFrame | None = None,
     *,
     day: int,
     timestamp: int,
@@ -111,10 +112,18 @@ def details_for_timestamp(
         & (equity["timestamp"] == timestamp)
         & (equity["product"] == product)
     ]
+    if logs is None or logs.empty or "timestamp" not in logs:
+        log_rows = pd.DataFrame()
+    else:
+        log_rows = logs[
+            (logs["timestamp"] == timestamp)
+            & ((logs["product"] == product) | (logs["product"].isna()))
+        ]
 
     return {
         "snapshot": snapshot,
         "trades": trade_rows.to_dict("records"),
         "fills": fill_rows.to_dict("records"),
         "equity": equity_rows.iloc[0].to_dict() if not equity_rows.empty else {},
+        "logs": log_rows.to_dict("records"),
     }

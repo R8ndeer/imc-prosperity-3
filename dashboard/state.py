@@ -7,6 +7,7 @@ from pathlib import Path
 import pandas as pd
 
 from dashboard.data_loader import load_round1_bundle
+from dashboard.log_parser import load_logs
 from dashboard.preprocess import build_canonical_bundle
 from dashboard.replay_adapter import build_replay_tables
 
@@ -15,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DATA_DIR = ROOT / "ROUND1"
 DEFAULT_REPLAY_DIR = ROOT / "output" / "round1"
 DEFAULT_CACHE_DIR = ROOT / "output" / "dashboard_cache"
+DEFAULT_LOG_DIR = ROOT / "output" / "round1" / "logs"
 
 
 @dataclass(frozen=True)
@@ -23,6 +25,7 @@ class DashboardData:
     trades: pd.DataFrame
     fills: pd.DataFrame
     equity: pd.DataFrame
+    logs: pd.DataFrame
     warnings: list[str]
 
 
@@ -30,6 +33,7 @@ class DashboardData:
 def load_dashboard_data(
     data_dir: str = str(DEFAULT_DATA_DIR),
     replay_dir: str = str(DEFAULT_REPLAY_DIR),
+    log_dir: str = str(DEFAULT_LOG_DIR),
 ) -> DashboardData:
     raw = load_round1_bundle(Path(data_dir), Path(replay_dir))
     canonical = build_canonical_bundle(raw)
@@ -47,6 +51,7 @@ def load_dashboard_data(
         trades=trades,
         fills=replay.fills,
         equity=replay.equity,
+        logs=load_logs(Path(log_dir)),
         warnings=[*canonical.warnings, *replay.warnings],
     )
 

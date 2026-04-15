@@ -79,10 +79,17 @@ def build_layout() -> html.Div:
                     dcc.Input(id="max-snapshots-input", type="number", min=100, step=100, value=4000),
                     html.Label("Stride"),
                     dcc.Input(id="stride-input", type="number", min=1, step=1, value=1),
+                    html.Label("Logs"),
+                    dcc.Dropdown(
+                        id="log-source-dropdown",
+                        options=[{"label": "Auto / none available", "value": "auto"}],
+                        value="auto",
+                        clearable=False,
+                    ),
                 ],
                 style={
                     "display": "grid",
-                    "gridTemplateColumns": "1fr 1fr 2fr 1fr 1fr 1fr 1fr 1fr 1fr",
+                    "gridTemplateColumns": "1fr 1fr 2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr",
                     "gap": "12px",
                     "alignItems": "end",
                     "marginBottom": "16px",

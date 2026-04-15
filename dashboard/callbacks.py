@@ -113,6 +113,13 @@ def _render_details(details: dict[str, object], *, day: int, timestamp: int, pro
                 ],
                 style={"display": "grid", "gridTemplateColumns": "1fr 1fr", "gap": "16px", "marginTop": "12px"},
             ),
+            html.Div(
+                [
+                    html.H4("Logs"),
+                    _small_table(details.get("logs", []), ["group", "key", "value"], "No parsed logs for this timestamp"),
+                ],
+                style={"marginTop": "12px"},
+            ),
         ]
     )
 
@@ -190,6 +197,7 @@ def register_callbacks(app: Dash) -> None:
             data.trades,
             data.fills,
             data.equity,
+            data.logs,
             day=day,
             timestamp=timestamp,
             product=hovered_product,
