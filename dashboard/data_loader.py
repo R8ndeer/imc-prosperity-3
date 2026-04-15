@@ -12,11 +12,12 @@ from pathlib import Path
 
 import pandas as pd
 
-from dashboard.state import DEFAULT_DATA_DIR, DEFAULT_REPLAY_DIR
-
 
 PRICE_PATTERN = "prices_round_1_day_*.csv"
 TRADE_PATTERN = "trades_round_1_day_*.csv"
+ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_DATA_DIR = ROOT / "ROUND1"
+DEFAULT_REPLAY_DIR = ROOT / "output" / "round1"
 
 
 @dataclass(frozen=True)
