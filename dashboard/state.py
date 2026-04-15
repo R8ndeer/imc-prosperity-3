@@ -6,6 +6,7 @@ from pathlib import Path
 
 import pandas as pd
 
+from dashboard.cache import read_cache
 from dashboard.data_loader import load_round1_bundle
 from dashboard.log_parser import load_logs
 from dashboard.preprocess import build_canonical_bundle
@@ -34,7 +35,19 @@ def load_dashboard_data(
     data_dir: str = str(DEFAULT_DATA_DIR),
     replay_dir: str = str(DEFAULT_REPLAY_DIR),
     log_dir: str = str(DEFAULT_LOG_DIR),
+    cache_dir: str = str(DEFAULT_CACHE_DIR),
 ) -> DashboardData:
+    cached = read_cache(Path(cache_dir))
+    if cached is not None:
+        return DashboardData(
+            snapshots=cached["snapshots"],
+            trades=cached["trades"],
+            fills=cached["fills"],
+            equity=cached["equity"],
+            logs=cached["logs"],
+            warnings=[],
+        )
+
     raw = load_round1_bundle(Path(data_dir), Path(replay_dir))
     canonical = build_canonical_bundle(raw)
     replay = build_replay_tables(canonical)
