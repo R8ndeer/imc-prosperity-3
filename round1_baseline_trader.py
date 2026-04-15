@@ -20,8 +20,8 @@ def get_book_walls(order_depth: OrderDepth) -> tuple[int | None, float | None, i
     buy_orders = order_depth.buy_orders if order_depth is not None else {}
     sell_orders = order_depth.sell_orders if order_depth is not None else {}
 
-    bid_wall = min(buy_orders) if buy_orders else None
-    ask_wall = max(sell_orders) if sell_orders else None
+    bid_wall = max(buy_orders) if buy_orders else None
+    ask_wall = min(sell_orders) if sell_orders else None
     wall_mid = (bid_wall + ask_wall) / 2 if bid_wall is not None and ask_wall is not None else None
     return bid_wall, wall_mid, ask_wall
 
