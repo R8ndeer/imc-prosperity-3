@@ -1,0 +1,9 @@
+[
+  "Strategy observes one visible book snapshot per product at each timestamp.",
+  "Aggressive orders fill immediately against visible quoted depth level-by-level.",
+  "Passive fills are not exact simulator emulation; they use a conservative heuristic.",
+  "Passive fill mode 'none' assumes no passive fills.",
+  "Passive fill mode 'trade_touch' fills passive orders only when historical trade prices reach the order price, capped by remaining historical traded quantity at that timestamp.",
+  "Historical market trades are used for diagnostics and optional passive-fill heuristics, not as proof that our resting order definitely filled.",
+  "PnL is marked to the snapshot mid_price when available; otherwise the latest known mid is carried forward."
+]
