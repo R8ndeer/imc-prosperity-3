@@ -131,8 +131,22 @@ def register_callbacks(app: Dash) -> None:
         Input("min-quantity-input", "value"),
         Input("max-quantity-input", "value"),
         Input("fill-side-dropdown", "value"),
+        Input("max-snapshots-input", "value"),
+        Input("stride-input", "value"),
     )
-    def update_figures(product, day, indicators, visibility, normalization, normalization_indicator, min_quantity, max_quantity, fill_side):
+    def update_figures(
+        product,
+        day,
+        indicators,
+        visibility,
+        normalization,
+        normalization_indicator,
+        min_quantity,
+        max_quantity,
+        fill_side,
+        max_snapshots,
+        stride,
+    ):
         data = load_dashboard_data()
         visibility = visibility or []
         indicators = indicators or []
@@ -152,9 +166,11 @@ def register_callbacks(app: Dash) -> None:
             min_quantity=min_quantity,
             max_quantity=max_quantity,
             fill_side=fill_side or "all",
+            max_snapshots=max_snapshots or 4000,
+            stride=stride or 1,
         )
-        position = build_position_figure(data.equity, product=product, day=day)
-        pnl = build_pnl_figure(data.equity, product=product, day=day)
+        position = build_position_figure(data.equity, product=product, day=day, max_snapshots=max_snapshots or 4000, stride=stride or 1)
+        pnl = build_pnl_figure(data.equity, product=product, day=day, max_snapshots=max_snapshots or 4000, stride=stride or 1)
         return market, position, pnl
 
     @app.callback(

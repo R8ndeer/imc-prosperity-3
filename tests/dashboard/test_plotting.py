@@ -63,6 +63,18 @@ class PlottingTest(unittest.TestCase):
         )
         self.assertIsInstance(fig, Figure)
 
+    def test_downsampling_controls_do_not_crash(self) -> None:
+        fig = build_market_figure(
+            self.snapshots,
+            self.trades,
+            self.fills,
+            product="INTARIAN_PEPPER_ROOT",
+            day="all",
+            max_snapshots=500,
+            stride=3,
+        )
+        self.assertIsInstance(fig, Figure)
+
 
 if __name__ == "__main__":
     unittest.main()

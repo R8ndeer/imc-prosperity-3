@@ -32,6 +32,16 @@ def _marker_size(depth: pd.Series) -> pd.Series:
     return 6 + 18 * clipped / clipped.max()
 
 
+def _downsample_by_plot_index(frame: pd.DataFrame, *, stride: int = 1, max_snapshots: int | None = None) -> pd.DataFrame:
+    if frame.empty or "plot_index" not in frame:
+        return frame.copy()
+    stride = max(int(stride or 1), 1)
+    unique_count = frame["plot_index"].nunique()
+    if max_snapshots and unique_count > int(max_snapshots):
+        stride = max(stride, int(unique_count // int(max_snapshots)) + 1)
+    return frame[frame["plot_index"] % stride == 0].copy()
+
+
 def _normalized_values(values: pd.Series, base: pd.Series | None, mode: str) -> pd.Series:
     if mode == "subtract" and base is not None:
         return values - base
@@ -72,17 +82,20 @@ def build_market_figure(
     min_quantity: int | float | None = None,
     max_quantity: int | float | None = None,
     fill_side: str = "all",
+    max_snapshots: int | None = 4000,
+    stride: int = 1,
 ) -> go.Figure:
     product_snapshots = _filter_product_day(snapshots, product, day)
     if product_snapshots.empty:
         return empty_figure(f"{product}: no market data")
+    plot_snapshots = _downsample_by_plot_index(product_snapshots, stride=stride, max_snapshots=max_snapshots)
 
     indicator_overlays = indicator_overlays or []
     fig = go.Figure()
 
     if show_book:
         for side, color in [("bid", "#1f77b4"), ("ask", "#d62728")]:
-            points = _book_level_points(product_snapshots, side)
+            points = _book_level_points(plot_snapshots, side)
             if points.empty:
                 continue
             base = points[normalization_indicator] if normalization_indicator in points else None
@@ -114,16 +127,16 @@ def build_market_figure(
     for indicator in indicator_overlays:
         if indicator not in product_snapshots:
             continue
-        base = product_snapshots[normalization_indicator] if normalization_indicator in product_snapshots else None
-        y_values = _normalized_values(product_snapshots[indicator], base, normalization_mode)
+        base = plot_snapshots[normalization_indicator] if normalization_indicator in plot_snapshots else None
+        y_values = _normalized_values(plot_snapshots[indicator], base, normalization_mode)
         fig.add_trace(
             go.Scatter(
-                x=product_snapshots["plot_index"],
+                x=plot_snapshots["plot_index"],
                 y=y_values,
                 mode="lines",
                 name=indicator,
                 line={"width": 1.5},
-                customdata=product_snapshots[["day", "timestamp", "product", indicator]],
+                customdata=plot_snapshots[["day", "timestamp", "product", indicator]],
                 hovertemplate=(
                     "day=%{customdata[0]}<br>"
                     "timestamp=%{customdata[1]}<br>"
@@ -209,8 +222,16 @@ def build_market_figure(
     return fig
 
 
-def build_position_figure(equity: pd.DataFrame, *, product: str, day: int | str | None = "all") -> go.Figure:
+def build_position_figure(
+    equity: pd.DataFrame,
+    *,
+    product: str,
+    day: int | str | None = "all",
+    max_snapshots: int | None = 4000,
+    stride: int = 1,
+) -> go.Figure:
     product_equity = _filter_product_day(equity, product, day)
+    product_equity = _downsample_by_plot_index(product_equity, stride=stride, max_snapshots=max_snapshots)
     if product_equity.empty:
         return empty_figure(f"{product}: no position data")
     fig = go.Figure(
@@ -226,8 +247,16 @@ def build_position_figure(equity: pd.DataFrame, *, product: str, day: int | str 
     return fig
 
 
-def build_pnl_figure(equity: pd.DataFrame, *, product: str, day: int | str | None = "all") -> go.Figure:
+def build_pnl_figure(
+    equity: pd.DataFrame,
+    *,
+    product: str,
+    day: int | str | None = "all",
+    max_snapshots: int | None = 4000,
+    stride: int = 1,
+) -> go.Figure:
     product_equity = _filter_product_day(equity, product, day)
+    product_equity = _downsample_by_plot_index(product_equity, stride=stride, max_snapshots=max_snapshots)
     if product_equity.empty:
         return empty_figure(f"{product}: no PnL data")
     fig = go.Figure(
