@@ -127,8 +127,9 @@ def register_callbacks(app: Dash) -> None:
         Input("indicator-checklist", "value"),
         Input("visibility-checklist", "value"),
         Input("normalization-dropdown", "value"),
+        Input("normalization-indicator-dropdown", "value"),
     )
-    def update_figures(product, day, indicators, visibility, normalization):
+    def update_figures(product, day, indicators, visibility, normalization, normalization_indicator):
         data = load_dashboard_data()
         visibility = visibility or []
         indicators = indicators or []
@@ -143,6 +144,8 @@ def register_callbacks(app: Dash) -> None:
             show_trades="trades" in visibility,
             show_fills="fills" in visibility,
             indicator_overlays=indicators,
+            normalization_mode=normalization or "none",
+            normalization_indicator=normalization_indicator or "wall_mid",
         )
         position = build_position_figure(data.equity, product=product, day=day)
         pnl = build_pnl_figure(data.equity, product=product, day=day)

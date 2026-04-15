@@ -32,6 +32,12 @@ def _marker_size(depth: pd.Series) -> pd.Series:
     return 6 + 18 * clipped / clipped.max()
 
 
+def _normalized_values(values: pd.Series, base: pd.Series | None, mode: str) -> pd.Series:
+    if mode == "subtract" and base is not None:
+        return values - base
+    return values
+
+
 def _book_level_points(snapshots: pd.DataFrame, side: str) -> pd.DataFrame:
     rows: list[dict[str, object]] = []
     color_side = "bid" if side == "bid" else "ask"
@@ -40,7 +46,8 @@ def _book_level_points(snapshots: pd.DataFrame, side: str) -> pd.DataFrame:
         volume_col = f"{color_side}_volume_{level}"
         if price_col not in snapshots or volume_col not in snapshots:
             continue
-        level_frame = snapshots[["day", "timestamp", "product", "plot_index", price_col, volume_col]].copy()
+        indicator_columns = [column for column in ["mid_price_clean", "wall_mid"] if column in snapshots.columns]
+        level_frame = snapshots[["day", "timestamp", "product", "plot_index", price_col, volume_col, *indicator_columns]].copy()
         level_frame = level_frame.rename(columns={price_col: "price", volume_col: "depth"})
         level_frame = level_frame.dropna(subset=["price"])
         level_frame["side"] = side.upper()
@@ -60,6 +67,8 @@ def build_market_figure(
     show_trades: bool = True,
     show_fills: bool = True,
     indicator_overlays: list[str] | None = None,
+    normalization_mode: str = "none",
+    normalization_indicator: str = "wall_mid",
 ) -> go.Figure:
     product_snapshots = _filter_product_day(snapshots, product, day)
     if product_snapshots.empty:
@@ -73,10 +82,12 @@ def build_market_figure(
             points = _book_level_points(product_snapshots, side)
             if points.empty:
                 continue
+            base = points[normalization_indicator] if normalization_indicator in points else None
+            y_values = _normalized_values(points["price"], base, normalization_mode)
             fig.add_trace(
                 go.Scattergl(
                     x=points["plot_index"],
-                    y=points["price"],
+                    y=y_values,
                     mode="markers",
                     name=f"{side.upper()} levels",
                     marker={
@@ -84,13 +95,14 @@ def build_market_figure(
                         "size": _marker_size(points["depth"]),
                         "opacity": 0.45,
                     },
-                    customdata=points[["day", "timestamp", "product", "side", "level", "depth"]],
+                    customdata=points[["day", "timestamp", "product", "side", "level", "depth", "price"]],
                     hovertemplate=(
                         "day=%{customdata[0]}<br>"
                         "timestamp=%{customdata[1]}<br>"
                         "product=%{customdata[2]}<br>"
                         "side=%{customdata[3]} L%{customdata[4]}<br>"
-                        "price=%{y}<br>"
+                        "plotted price=%{y}<br>"
+                        "raw price=%{customdata[6]}<br>"
                         "depth=%{customdata[5]}<extra></extra>"
                     ),
                 )
@@ -99,19 +111,22 @@ def build_market_figure(
     for indicator in indicator_overlays:
         if indicator not in product_snapshots:
             continue
+        base = product_snapshots[normalization_indicator] if normalization_indicator in product_snapshots else None
+        y_values = _normalized_values(product_snapshots[indicator], base, normalization_mode)
         fig.add_trace(
             go.Scatter(
                 x=product_snapshots["plot_index"],
-                y=product_snapshots[indicator],
+                y=y_values,
                 mode="lines",
                 name=indicator,
                 line={"width": 1.5},
-                customdata=product_snapshots[["day", "timestamp", "product"]],
+                customdata=product_snapshots[["day", "timestamp", "product", indicator]],
                 hovertemplate=(
                     "day=%{customdata[0]}<br>"
                     "timestamp=%{customdata[1]}<br>"
                     "product=%{customdata[2]}<br>"
-                    f"{indicator}=%{{y}}<extra></extra>"
+                    f"plotted {indicator}=%{{y}}<br>"
+                    f"raw {indicator}=%{{customdata[3]}}<extra></extra>"
                 ),
             )
         )
@@ -119,19 +134,22 @@ def build_market_figure(
     if show_trades and not trades.empty:
         product_trades = _filter_product_day(trades, product, day)
         if not product_trades.empty:
+            base = product_trades[normalization_indicator] if normalization_indicator in product_trades else None
+            y_values = _normalized_values(product_trades["price"], base, normalization_mode)
             fig.add_trace(
                 go.Scattergl(
                     x=product_trades.get("plot_index", product_trades["timestamp"]),
-                    y=product_trades["price"],
+                    y=y_values,
                     mode="markers",
                     name="historical trades",
                     marker={"color": "#4d4d4d", "symbol": "circle", "size": _marker_size(product_trades["quantity"]), "opacity": 0.55},
-                    customdata=product_trades[["day", "timestamp", "product", "quantity"]],
+                    customdata=product_trades[["day", "timestamp", "product", "quantity", "price"]],
                     hovertemplate=(
                         "day=%{customdata[0]}<br>"
                         "timestamp=%{customdata[1]}<br>"
                         "product=%{customdata[2]}<br>"
-                        "trade price=%{y}<br>"
+                        "plotted trade price=%{y}<br>"
+                        "raw trade price=%{customdata[4]}<br>"
                         "quantity=%{customdata[3]}<extra></extra>"
                     ),
                 )
@@ -143,20 +161,23 @@ def build_market_figure(
             side_fills = product_fills[product_fills["side"] == side] if not product_fills.empty else pd.DataFrame()
             if side_fills.empty:
                 continue
+            base = side_fills[normalization_indicator] if normalization_indicator in side_fills else None
+            y_values = _normalized_values(side_fills["price"], base, normalization_mode)
             fig.add_trace(
                 go.Scattergl(
                     x=side_fills.get("plot_index", side_fills["timestamp"]),
-                    y=side_fills["price"],
+                    y=y_values,
                     mode="markers",
                     name=f"our {side.lower()} fills",
                     marker={"color": color, "symbol": symbol, "size": 11, "opacity": 0.9},
-                    customdata=side_fills[["day", "timestamp", "product", "quantity", "liquidity"]],
+                    customdata=side_fills[["day", "timestamp", "product", "quantity", "liquidity", "price"]],
                     hovertemplate=(
                         "day=%{customdata[0]}<br>"
                         "timestamp=%{customdata[1]}<br>"
                         "product=%{customdata[2]}<br>"
                         f"side={side}<br>"
-                        "fill price=%{y}<br>"
+                        "plotted fill price=%{y}<br>"
+                        "raw fill price=%{customdata[5]}<br>"
                         "quantity=%{customdata[3]}<br>"
                         "liquidity=%{customdata[4]}<extra></extra>"
                     ),
@@ -167,7 +188,7 @@ def build_market_figure(
         title=f"{product} microstructure",
         template="plotly_white",
         xaxis_title="Snapshot index",
-        yaxis_title="Price",
+        yaxis_title="Price" if normalization_mode == "none" else f"Price - {normalization_indicator}",
         hovermode="closest",
         legend={"orientation": "h", "yanchor": "bottom", "y": 1.02, "xanchor": "left", "x": 0},
         margin={"l": 60, "r": 30, "t": 80, "b": 50},

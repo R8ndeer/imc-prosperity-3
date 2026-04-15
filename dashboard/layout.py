@@ -33,8 +33,21 @@ def build_layout() -> html.Div:
                     html.Label("Normalization"),
                     dcc.Dropdown(
                         id="normalization-dropdown",
-                        options=[{"label": "None", "value": "none"}],
+                        options=[
+                            {"label": "None", "value": "none"},
+                            {"label": "Subtract selected indicator", "value": "subtract"},
+                        ],
                         value="none",
+                        clearable=False,
+                    ),
+                    html.Label("Normalize By"),
+                    dcc.Dropdown(
+                        id="normalization-indicator-dropdown",
+                        options=[
+                            {"label": "Wall Mid", "value": "wall_mid"},
+                            {"label": "Mid Price", "value": "mid_price_clean"},
+                        ],
+                        value="wall_mid",
                         clearable=False,
                     ),
                     dcc.Checklist(

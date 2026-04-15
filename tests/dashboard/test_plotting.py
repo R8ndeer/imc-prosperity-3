@@ -38,6 +38,18 @@ class PlottingTest(unittest.TestCase):
         fig = build_market_figure(self.snapshots, self.trades, self.fills, product="MISSING", day=-2)
         self.assertIsInstance(fig, Figure)
 
+    def test_normalization_does_not_crash_on_missing_indicator(self) -> None:
+        fig = build_market_figure(
+            self.snapshots,
+            self.trades,
+            self.fills,
+            product="INTARIAN_PEPPER_ROOT",
+            day=-2,
+            normalization_mode="subtract",
+            normalization_indicator="not_a_column",
+        )
+        self.assertIsInstance(fig, Figure)
+
 
 if __name__ == "__main__":
     unittest.main()

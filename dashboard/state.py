@@ -36,7 +36,7 @@ def load_dashboard_data(
     replay = build_replay_tables(canonical)
 
     trades = canonical.trades.merge(
-        canonical.snapshots[["day", "timestamp", "product", "plot_index"]],
+        canonical.snapshots[["day", "timestamp", "product", "plot_index", "mid_price_clean", "wall_mid"]],
         on=["day", "timestamp", "product"],
         how="left",
         validate="many_to_one",
