@@ -69,6 +69,9 @@ def build_market_figure(
     indicator_overlays: list[str] | None = None,
     normalization_mode: str = "none",
     normalization_indicator: str = "wall_mid",
+    min_quantity: int | float | None = None,
+    max_quantity: int | float | None = None,
+    fill_side: str = "all",
 ) -> go.Figure:
     product_snapshots = _filter_product_day(snapshots, product, day)
     if product_snapshots.empty:
@@ -133,6 +136,10 @@ def build_market_figure(
 
     if show_trades and not trades.empty:
         product_trades = _filter_product_day(trades, product, day)
+        if min_quantity is not None:
+            product_trades = product_trades[product_trades["quantity"] >= float(min_quantity)]
+        if max_quantity is not None:
+            product_trades = product_trades[product_trades["quantity"] <= float(max_quantity)]
         if not product_trades.empty:
             base = product_trades[normalization_indicator] if normalization_indicator in product_trades else None
             y_values = _normalized_values(product_trades["price"], base, normalization_mode)
@@ -157,6 +164,12 @@ def build_market_figure(
 
     if show_fills and not fills.empty:
         product_fills = _filter_product_day(fills, product, day)
+        if min_quantity is not None and not product_fills.empty:
+            product_fills = product_fills[product_fills["quantity"] >= float(min_quantity)]
+        if max_quantity is not None and not product_fills.empty:
+            product_fills = product_fills[product_fills["quantity"] <= float(max_quantity)]
+        if fill_side not in (None, "all") and not product_fills.empty:
+            product_fills = product_fills[product_fills["side"] == fill_side]
         for side, color, symbol in [("BUY", "#2ca02c", "triangle-up"), ("SELL", "#d62728", "triangle-down")]:
             side_fills = product_fills[product_fills["side"] == side] if not product_fills.empty else pd.DataFrame()
             if side_fills.empty:

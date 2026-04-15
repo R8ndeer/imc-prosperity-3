@@ -50,6 +50,19 @@ class PlottingTest(unittest.TestCase):
         )
         self.assertIsInstance(fig, Figure)
 
+    def test_trade_filters_do_not_crash(self) -> None:
+        fig = build_market_figure(
+            self.snapshots,
+            self.trades,
+            self.fills,
+            product="INTARIAN_PEPPER_ROOT",
+            day=-2,
+            min_quantity=5,
+            max_quantity=20,
+            fill_side="BUY",
+        )
+        self.assertIsInstance(fig, Figure)
+
 
 if __name__ == "__main__":
     unittest.main()
