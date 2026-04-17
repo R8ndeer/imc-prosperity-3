@@ -30,6 +30,22 @@ class ConversionObservation:
     importTariff: float
     sunlight: float | None = None
     humidity: float | None = None
+    # The Prosperity 4 wiki snippet is internally inconsistent here: the
+    # constructor shows `sunlight`/`humidity`, while the body assigns
+    # `sunlightIndex`/`sugarPrice`. We keep the official-looking constructor
+    # shape, but expose both naming schemes explicitly for local compatibility.
+    sunlightIndex: float | None = None
+    sugarPrice: float | None = None
+
+    def __post_init__(self) -> None:
+        if self.sunlightIndex is None:
+            self.sunlightIndex = self.sunlight
+        if self.sunlight is None:
+            self.sunlight = self.sunlightIndex
+        if self.sugarPrice is None:
+            self.sugarPrice = self.humidity
+        if self.humidity is None:
+            self.humidity = self.sugarPrice
 
 
 @dataclass
