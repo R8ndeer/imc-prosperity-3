@@ -1,14 +1,18 @@
 import unittest
 
-from datamodel import OrderDepth, TradingState
+from datamodel import Listing, Observation, OrderDepth, TradingState
 from FrankfurtHedgehogs_polished import ETF_BASKET_SYMBOLS, ETF_CONSTITUENT_SYMBOLS, EtfTrader
 
 
 class EtfTraderSmokeTest(unittest.TestCase):
     def test_etf_trader_runs_without_swallowed_spread_errors(self) -> None:
         state = TradingState(
-            timestamp=100,
             traderData="",
+            timestamp=100,
+            listings={
+                symbol: Listing(symbol=symbol, product=symbol, denomination="SEASHELLS")
+                for symbol in [*ETF_BASKET_SYMBOLS, *ETF_CONSTITUENT_SYMBOLS]
+            },
             position={},
             order_depths={
                 "PICNIC_BASKET1": OrderDepth(buy_orders={1000: 10}, sell_orders={1010: -10}),
@@ -17,6 +21,7 @@ class EtfTraderSmokeTest(unittest.TestCase):
                 "JAMS": OrderDepth(buy_orders={50: 20}, sell_orders={52: -20}),
                 "DJEMBES": OrderDepth(buy_orders={25: 20}, sell_orders={27: -20}),
             },
+            observations=Observation(),
         )
 
         trader = EtfTrader(state, {"GENERAL": {}}, {})

@@ -1,14 +1,15 @@
 import unittest
 
-from datamodel import OrderDepth, TradingState
+from datamodel import Listing, Observation, OrderDepth, TradingState
 from FrankfurtHedgehogs_polished import Trader
 
 
 class TraderSmokeTest(unittest.TestCase):
     def test_trader_runs_on_minimal_static_product(self) -> None:
         state = TradingState(
-            timestamp=0,
             traderData="",
+            timestamp=0,
+            listings={"RAINFOREST_RESIN": Listing(symbol="RAINFOREST_RESIN", product="RAINFOREST_RESIN", denomination="SEASHELLS")},
             position={},
             order_depths={
                 "RAINFOREST_RESIN": OrderDepth(
@@ -16,6 +17,7 @@ class TraderSmokeTest(unittest.TestCase):
                     sell_orders={10002: -5, 10003: -5},
                 )
             },
+            observations=Observation(),
         )
 
         result = Trader().run(state)

@@ -1,6 +1,6 @@
 import unittest
 
-from datamodel import ConversionObservation, Observations, OrderDepth, TradingState
+from datamodel import ConversionObservation, Listing, Observation, Observations, OrderDepth, TradingState
 from FrankfurtHedgehogs_polished import (
     COMMODITY_SYMBOL,
     DYNAMIC_SYMBOL,
@@ -21,16 +21,18 @@ def make_state(
     *,
     timestamp: int = 100,
     order_depths: dict[str, OrderDepth] | None = None,
-    observations: Observations | None = None,
+    observations: Observation | None = None,
 ) -> TradingState:
+    products = set((order_depths or {}).keys())
     return TradingState(
-        timestamp=timestamp,
         traderData="",
+        timestamp=timestamp,
+        listings={product: Listing(symbol=product, product=product, denomination="XIRECS") for product in products},
         position={},
         order_depths=order_depths or {},
         market_trades={},
         own_trades={},
-        observations=observations or Observations(),
+        observations=observations or Observation(),
     )
 
 

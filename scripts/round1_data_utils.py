@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from datamodel import Observations, Order, OrderDepth, Trade, TradingState
+from datamodel import Listing, Observation, Order, OrderDepth, Trade, TradingState
 from round1_baseline_trader import POSITION_LIMITS, ROUND1_PRODUCTS, get_book_walls
 
 
@@ -186,6 +186,16 @@ def build_market_trades(trades_slice: pd.DataFrame) -> dict[str, list[Trade]]:
             for row in product_frame.itertuples(index=False)
         ]
     return market_trades
+
+
+def build_listings(products: Iterable[str], denomination: str = "XIRECS") -> dict[str, Listing]:
+    """CSV snapshots do not include listing metadata, so we synthesize minimal
+    official-style listings keyed by symbol/product.
+    """
+    return {
+        product: Listing(symbol=product, product=product, denomination=denomination)
+        for product in sorted(set(products))
+    }
 
 
 def _consume_aggressive_buy(
@@ -371,13 +381,14 @@ def run_round1_replay(
         trades_slice = trades_by_timestamp.get((day, timestamp), pd.DataFrame(columns=trades.columns))
 
         state = TradingState(
-            timestamp=int(timestamp),
             traderData=trader_data,
+            timestamp=int(timestamp),
+            listings=build_listings(snapshot_by_product.keys()),
             position=positions.copy(),
             order_depths=order_depths,
             market_trades=build_market_trades(trades_slice),
             own_trades={},
-            observations=Observations(),
+            observations=Observation(),
         )
 
         orders_by_product, _, trader_data = trader.run(state)
