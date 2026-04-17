@@ -14,7 +14,7 @@ POSITION_LIMITS = {
 # buying more readily and selling more selectively.
 PEPPER_BUY_TAKE_THRESHOLD = 1
 PEPPER_SELL_TAKE_THRESHOLD = 2
-PEPPER_PASSIVE_SELL_OFFSET = 1
+PEPPER_PASSIVE_SELL_OFFSET = 3
 
 
 class BaseProductTrader:
