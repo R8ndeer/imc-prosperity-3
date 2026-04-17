@@ -182,6 +182,13 @@ class Trader:
         OSMIUM: OsmiumTrader,
     }
 
+    def bid(self) -> int:
+        """Optional Prosperity Round 2 compatibility hook.
+
+        Round 1 ignores this method, so the baseline exposes a harmless default.
+        """
+        return 0
+
     def run(self, state: TradingState):
         result: dict[str, list[Order]] = {}
         trader_data = {}
